@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZerowFX – Professional Trading Community</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1db954;
+    --green-dark: #158a3e;
+    --green-glow: #1db95433;
+    --gold: #f0c040;
+    --gold-dark: #c9952a;
+    --black: #0a0a0a;
+    --black2: #111111;
+    --black3: #181818;
+    --white: #f5f5f5;
+    --muted: #888;
+    --border: #222;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 400;
+    overflow-x: hidden;
+  }
+
+  /* ── TOP BANNER ── */
+  .top-banner {
+    background: var(--green-dark);
+    text-align: center;
+    padding: 10px 16px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #fff;
+    position: relative;
+    z-index: 1001;
+  }
+  .top-banner strong { color: var(--gold); }
+
+  /* ── NAVBAR ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--black2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .nav-logo-icon {
+    width: 36px; height: 36px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 16px; color: #000;
+  }
+  .nav-logo span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 24px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .nav-links a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-cta {
+    background: var(--gold);
+    color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 10px 22px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--gold-dark); transform: scale(1.03); }
+
+  /* ── OFFER COUNTDOWN STRIP ── */
+  .offer-strip {
+    background: #0f0f0f;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .offer-strip .label { font-weight: 700; color: var(--white); font-size: 12px; }
+  .countdown-boxes { display: flex; align-items: center; gap: 6px; }
+  .cbox {
+    background: #1a1a1a;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    text-align: center;
+    min-width: 52px;
+  }
+  .cbox .num {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1;
+    display: block;
+  }
+  .cbox .unit { font-size: 9px; color: var(--muted); letter-spacing: 1px; }
+  .colon { font-size: 20px; font-weight: 700; color: var(--green); }
+  .offer-badges { display: flex; gap: 12px; align-items: center; }
+  .offer-badge {
+    background: var(--black3);
+    border: 1px solid var(--green);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 11px;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* ── TICKER ── */
+  .ticker-wrap {
+    background: #0d0d0d;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    padding: 8px 0;
+  }
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    animation: ticker 35s linear infinite;
+    width: max-content;
+  }
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 28px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    border-right: 1px solid #222;
+    white-space: nowrap;
+  }
+  .ticker-symbol { font-weight: 700; color: var(--white); }
+  .ticker-price { color: var(--muted); }
+  .up { color: var(--green); }
+  .down { color: #e55; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, #1db95415 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 20% 80%, #f0c04008 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(54px, 10vw, 110px);
+    letter-spacing: 4px;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 14px;
+  }
+  .hero h1 span { color: var(--green); }
+  .hero-sub {
+    font-size: 17px;
+    color: #aaa;
+    max-width: 620px;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    font-weight: 300;
+  }
+  .hero-sub strong { color: var(--white); font-weight: 600; }
+  .hero-giveaway {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 12px 24px;
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 36px;
+    display: inline-block;
+  }
+  .hero-giveaway span { color: var(--gold); }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-bottom: 48px; }
+  .btn-primary {
+    background: var(--green);
+    color: #000;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    padding: 15px 36px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 0 24px var(--green-glow);
+  }
+  .btn-primary:hover { background: #17a348; transform: translateY(-2px); box-shadow: 0 0 40px #1db95466; }
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid #333;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 1px;
+    padding: 15px 36px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+  .hero-trust {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .hero-trust span { display: flex; align-items: center; gap: 6px; }
+  .hero-trust .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  /* ── FEATURES LIST ── */
+  .features {
+    background: var(--black2);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .features-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    color: var(--green);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background: var(--black3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 14px;
+    color: #ccc;
+    transition: border-color 0.2s;
+  }
+  .feature-item:hover { border-color: var(--green); }
+  .feature-item::before {
+    content: '✦';
+    color: var(--green);
+    font-size: 12px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 90px 24px; }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--green);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(36px, 6vw, 68px);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    font-size: 15px;
+    color: #999;
+    max-width: 560px;
+    line-height: 1.75;
+    margin-bottom: 40px;
+    font-weight: 300;
+  }
+
+  /* ── COMMUNITY SECTION ── */
+  .community { background: var(--black); text-align: center; }
+  .community .section-desc { margin: 0 auto 40px; }
+  .community-cards {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    text-align: left;
+  }
+  .comm-card {
+    background: var(--black2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.2s;
+  }
+  .comm-card:hover { border-color: var(--green); transform: translateY(-4px); }
+  .comm-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--green), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .comm-card:hover::after { opacity: 1; }
+  .comm-card-icon { font-size: 28px; margin-bottom: 14px; }
+  .comm-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: var(--white);
+  }
+  .comm-card p { font-size: 14px; color: #888; line-height: 1.7; }
+
+  /* ── SETUPS ── */
+  .setups { background: var(--black2); text-align: center; }
+  .setups-grid {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    text-align: left;
+  }
+  .setup-card {
+    background: var(--black);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .setup-card:hover { border-color: var(--green); }
+  .setup-card-header {
+    background: var(--black3);
+    padding: 14px 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--muted);
+  }
+  .setup-card-header span { color: var(--green); margin-right: 6px; }
+  .setup-placeholder {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #0e0e0e;
+    color: #333;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .chart-mock {
+    width: 80%;
+    height: 80px;
+    position: relative;
+  }
+  .chart-mock svg { width: 100%; height: 100%; }
+  .setups-cta {
+    margin-top: 40px;
+    font-size: 15px;
+    color: #bbb;
+  }
+  .setups-cta a { color: var(--green); text-decoration: none; font-weight: 600; }
+
+  /* ── RESULTS ── */
+  .results { background: var(--black); text-align: center; }
+  .results-grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .result-card {
+    background: var(--black2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 20px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .result-card:hover { border-color: var(--green); transform: translateY(-3px); }
+  .result-tag {
+    display: inline-block;
+    background: #1db95422;
+    color: var(--green);
+    border: 1px solid var(--green);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .result-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    letter-spacing: 2px;
+    color: var(--white);
+    line-height: 1;
+  }
+  .result-number span { color: var(--green); }
+  .result-label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: var(--black2); text-align: center; }
+  .testi-grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    text-align: left;
+  }
+  .testi-card {
+    background: var(--black);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .testi-card:hover { border-color: var(--green); }
+  .testi-quote {
+    font-size: 32px;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 12px;
+    opacity: 0.5;
+  }
+  .testi-text { font-size: 14px; color: #aaa; line-height: 1.7; margin-bottom: 20px; }
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .testi-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--black3);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .testi-name { font-size: 13px; font-weight: 600; color: var(--white); }
+  .testi-role { font-size: 11px; color: var(--muted); }
+  .stars { color: var(--gold); font-size: 12px; margin-bottom: 12px; }
+
+  /* ── BROKER ── */
+  .broker {
+    background: var(--black);
+    text-align: center;
+  }
+  .broker-card {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--black2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 52px 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .broker-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--gold), var(--green));
+  }
+  .broker-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 42px;
+    letter-spacing: 6px;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .broker-logo span { color: var(--gold); }
+  .broker-tagline { font-size: 14px; color: #888; margin-bottom: 32px; }
+  .broker-perks {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+  }
+  .perk {
+    background: #0f0f0f;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .perk .check { color: var(--green); font-weight: 700; }
+  .broker-bonus {
+    background: linear-gradient(135deg, #1a1a00, #111);
+    border: 1px solid #3a3000;
+    border-radius: 12px;
+    padding: 20px 28px;
+    margin-bottom: 28px;
+    display: inline-block;
+  }
+  .bonus-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    letter-spacing: 2px;
+    color: var(--gold);
+  }
+  .bonus-sub { font-size: 13px; color: #888; }
+  .broker-disclaimer { font-size: 11px; color: #555; margin-top: 20px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black2);
+    border-top: 1px solid var(--border);
+    padding: 48px 40px 32px;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 4px;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    list-style: none;
+    margin-bottom: 24px;
+  }
+  .footer-links a { color: #777; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--green); }
+  .footer-cta {
+    margin-bottom: 28px;
+  }
+  .footer-bottom { font-size: 12px; color: #444; line-height: 1.8; }
+  .footer-bottom a { color: #555; text-decoration: none; }
+
+  /* ── STICKY BOTTOM BAR ── */
+  .sticky-bottom {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #0f0f0f;
+    border-top: 1px solid #1db95444;
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 999;
+    box-shadow: 0 -8px 40px #1db95415;
+  }
+  .sticky-text { font-size: 13px; color: #bbb; }
+  .sticky-text strong { color: var(--gold); }
+  .sticky-bottom .btn-primary { padding: 10px 28px; font-size: 14px; }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 16px; }
+    .nav-links { display: none; }
+    .community-cards, .setups-grid, .results-grid, .testi-grid { grid-template-columns: 1fr; }
+    .broker-card { padding: 32px 20px; }
+    .sticky-text { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BANNER -->
+<div class="top-banner">
+  🎉 <strong>THIS WEEK ONLY</strong> — Join Now & Get a $247 Masterclass PDF for FREE
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">Z</div>
+    <span>Zerowfx</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#setups">Setups</a></li>
+    <li><a href="#broker">Broker</a></li>
+  </ul>
+  <a href="#join" class="nav-cta">Join Telegram</a>
+</nav>
+
+<!-- OFFER STRIP -->
+<div class="offer-strip">
+  <span class="label">OFFER ENDS IN:</span>
+  <div class="countdown-boxes">
+    <div class="cbox"><span class="num" id="cd-days">04</span><span class="unit">DAYS</span></div>
+    <span class="colon">:</span>
+    <div class="cbox"><span class="num" id="cd-hours">05</span><span class="unit">HOURS</span></div>
+    <span class="colon">:</span>
+    <div class="cbox"><span class="num" id="cd-mins">50</span><span class="unit">MINUTES</span></div>
+    <span class="colon">:</span>
+    <div class="cbox"><span class="num" id="cd-secs">07</span><span class="unit">SECONDS</span></div>
+  </div>
+  <div class="offer-badges">
+    <span class="offer-badge">📄 Masterclass PDF</span>
+    <span class="offer-badge">💎 VIP Group Access</span>
+    <span class="offer-badge">💰 100% Bonus</span>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-eyebrow">ZEROWFX COMMUNITY</div>
+  <h1>Trade <span>Smarter.</span><br>Win Together.</h1>
+  <p class="hero-sub">
+    Join an exclusive professional trading community led by ZerowFX. Get <strong>real-time GOLD, US INDICES & CRYPTO signals</strong>, precise setups, live sessions, and clear daily analysis — backed by <strong>10+ years of experience.</strong>
+  </p>
+  <div class="hero-giveaway">
+    📬 Get market insights + enter our <span>$50 giveaway</span> every 2 weeks 🎁
+  </div>
+  <div class="hero-btns">
+    <a href="#join" class="btn-primary">Join Telegram Free →</a>
+    <a href="#results" class="btn-secondary">See Verified Results</a>
+  </div>
+  <div class="hero-trust">
+    <span><div class="dot"></div> Verified Results</span>
+    <span><div class="dot"></div> 100% Transparent</span>
+    <span><div class="dot"></div> Real-Time Signals</span>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div style="background: var(--black2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 60px 24px;">
+  <div class="features-title">What You Get Inside</div>
+  <div class="features-grid" style="max-width:960px; margin:0 auto;">
+    <div class="feature-item fade-up">Access to Zfx Telegram Trading Community</div>
+    <div class="feature-item fade-up">Weekly Live Sessions on Forex, Stocks, and Crypto</div>
+    <div class="feature-item fade-up">Mid-Week Market Updates on Forex, Stocks, and Crypto</div>
+    <div class="feature-item fade-up">High-Quality Trade Setups delivered daily</div>
+    <div class="feature-item fade-up">Daily Live Sessions and Q&A with ZerowFX Seniors</div>
+    <div class="feature-item fade-up">Monthly Live Sessions on Investments and Stocks</div>
+    <div class="feature-item fade-up">Best Tips to Strengthen Your Trading Psychology</div>
+  </div>
+</div>
+
+<!-- COMMUNITY -->
+<section class="community" id="community">
+  <div class="section-label fade-up">Beyond Trading</div>
+  <h2 class="fade-up">Zerowfx — <br>Your Success Partner</h2>
+  <p class="section-desc fade-up">Our community thrives on collaboration and mutual growth. Knowledge flows freely here — from beginner questions to advanced market analysis.</p>
+  <div class="community-cards">
+    <div class="comm-card fade-up">
+      <div class="comm-card-icon">🤝</div>
+      <h3>Giveaways & Rewards</h3>
+      <p>We organize regular giveaways to give back to our members and celebrate wins together. Every 2 weeks, a community member takes home cash.</p>
+    </div>
+    <div class="comm-card fade-up">
+      <div class="comm-card-icon">💬</div>
+      <h3>Group Chats & Insights</h3>
+      <p>Active group chats where traders share insights and strategies. Everyone helps each other — from beginners to seasoned professionals.</p>
+    </div>
+    <div class="comm-card fade-up">
+      <div class="comm-card-icon">🌆</div>
+      <h3>City Meetups</h3>
+      <p>We organize real-world meetups where members network, share experiences, and build lasting connections beyond the screen.</p>
+    </div>
+    <div class="comm-card fade-up">
+      <div class="comm-card-icon">📈</div>
+      <h3>Consistent Performance</h3>
+      <p>A methodology backed by 10+ years of experience, performing consistently across bull markets, bear markets, and volatile conditions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section class="results" id="results">
+  <div class="section-label fade-up">Proven Track Record</div>
+  <h2 class="fade-up">Real Results.<br><span style="color:var(--green)">Real Members.</span></h2>
+  <p class="section-desc fade-up" style="margin: 0 auto 48px;">See real screenshots from our community members' winning trades. Every result is verified and transparent.</p>
+  <div class="results-grid fade-up">
+    <div class="result-card">
+      <div class="result-tag">WIN RATE</div>
+      <div class="result-number">87<span>%</span></div>
+      <div class="result-label">Average signal accuracy</div>
+    </div>
+    <div class="result-card">
+      <div class="result-tag">EXPERIENCE</div>
+      <div class="result-number">10<span>+</span></div>
+      <div class="result-label">Years of trading expertise</div>
+    </div>
+    <div class="result-card">
+      <div class="result-tag">COMMUNITY</div>
+      <div class="result-number">5K<span>+</span></div>
+      <div class="result-label">Active members worldwide</div>
+    </div>
+  </div>
+</section>
+
+<!-- SETUPS -->
+<section class="setups" id="setups">
+  <div class="section-label fade-up">Chart Analysis</div>
+  <h2 class="fade-up">Our Trading <span style="color:var(--green)">Setups</span></h2>
+  <p class="section-desc fade-up" style="margin: 0 auto 48px;">See the exact chart analysis and setups that led to successful trades.</p>
+  <div class="setups-grid fade-up">
+    <div class="setup-card">
+      <div class="setup-card-header"><span>📍</span>BEFORE — Setup</div>
+      <div class="setup-placeholder">
+        <svg viewBox="0 0 200 80" class="chart-mock" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="0,60 30,45 60,50 90,30 120,35 150,20 180,28 200,15" fill="none" stroke="#1db954" stroke-width="2"/>
+          <line x1="140" y1="0" x2="140" y2="80" stroke="#f0c040" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="142" y="12" fill="#f0c040" font-size="8" font-family="sans-serif">ENTRY</text>
+        </svg>
+        <span>Chart Preview</span>
+      </div>
+    </div>
+    <div class="setup-card">
+      <div class="setup-card-header"><span>✅</span>AFTER — Result</div>
+      <div class="setup-placeholder">
+        <svg viewBox="0 0 200 80" class="chart-mock" xmlns="http://www.w3.org/2000/svg">
+          <polyline points="0,60 30,45 60,50 90,30 120,35 150,20 180,10 200,6" fill="none" stroke="#1db954" stroke-width="2"/>
+          <line x1="100" y1="0" x2="100" y2="80" stroke="#f0c040" stroke-width="1" stroke-dasharray="4,3"/>
+          <text x="102" y="12" fill="#f0c040" font-size="8" font-family="sans-serif">TP HIT ✓</text>
+        </svg>
+        <span>Target Reached</span>
+      </div>
+    </div>
+  </div>
+  <p class="setups-cta fade-up">Want to receive setups like these daily? <a href="#join">Join the community →</a></p>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-label fade-up">Social Proof</div>
+  <h2 class="fade-up">What Our Members Say</h2>
+  <p class="section-desc fade-up" style="margin: 0 auto 48px;">Actual feedback from our community members.</p>
+  <div class="testi-grid fade-up">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">ZerowFX completely changed how I approach the market. The signals are incredibly accurate and the live sessions are gold. Made back my membership in the first week.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👤</div>
+        <div>
+          <div class="testi-name">Ahmed K.</div>
+          <div class="testi-role">Forex Trader, Dubai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">The GOLD setups alone are worth everything. ZerowFX doesn't just give signals — they teach you WHY. I've improved more in 2 months here than in 2 years alone.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👤</div>
+        <div>
+          <div class="testi-name">Sarah M.</div>
+          <div class="testi-role">Crypto Trader, UK</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Best trading community I've ever joined. The transparency is unmatched — every result is posted win or lose. That honesty is rare and it builds real trust.</p>
+      <div class="testi-author">
+        <div class="testi-avatar">👤</div>
+        <div>
+          <div class="testi-name">Carlos R.</div>
+          <div class="testi-role">Indices Trader, Spain</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BROKER -->
+<section class="broker" id="broker">
+  <div class="section-label fade-up">Recommended Partner</div>
+  <h2 class="fade-up">Start Trading With<br><span style="color:var(--gold)">100% Bonus</span></h2>
+  <div class="broker-card fade-up">
+    <div class="broker-logo">XM <span>Broker</span></div>
+    <p class="broker-tagline">Get a 100% deposit bonus when you sign up with XM — our trusted broker partner. Trade gold, forex, and indices with tight spreads and fast execution.</p>
+    <div class="broker-bonus">
+      <div class="bonus-text">100% DEPOSIT BONUS</div>
+      <div class="bonus-sub">Double your starting capital instantly</div>
+    </div>
+    <div class="broker-perks">
+      <div class="perk"><span class="check">✓</span> 100% Deposit Bonus</div>
+      <div class="perk"><span class="check">✓</span> Tight Spreads on Gold</div>
+      <div class="perk"><span class="check">✓</span> Fast Withdrawals</div>
+    </div>
+    <a href="#" class="btn-primary" style="display:inline-block;">Claim Your Bonus Now →</a>
+    <p class="broker-disclaimer">Trading involves risk. Partner code: CQMHK</p>
+  </div>
+</section>
+
+<!-- JOIN CTA -->
+<section id="join" style="background: var(--black2); text-align:center; padding: 90px 24px;">
+  <div class="section-label fade-up">Limited Time</div>
+  <h2 class="fade-up" style="margin-bottom:16px;">Join <span style="color:var(--green)">ZerowFX</span><br>Today</h2>
+  <p class="section-desc fade-up" style="margin:0 auto 36px;">This week only — join now and receive a <strong style="color:var(--gold)">$247 Masterclass PDF</strong> for FREE + VIP Group Access.</p>
+  <a href="#" class="btn-primary fade-up" style="display:inline-block; font-size:18px; padding: 18px 52px;">Join Telegram Free →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ZEROWFX</div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#setups">Setups</a></li>
+    <li><a href="#broker">Broker</a></li>
+    <li><a href="#join">Join Telegram</a></li>
+  </ul>
+  <div class="footer-cta">
+    <a href="#join" class="btn-primary">Join Telegram →</a>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Zerowfx. All rights reserved.<br>
+    Trading involves substantial risk. Past performance is not indicative of future results.
+  </div>
+</footer>
+
+<!-- STICKY BOTTOM -->
+<div class="sticky-bottom" id="sticky-bar">
+  <div class="sticky-text">🎁 <strong>THIS WEEK ONLY</strong> — $247 Masterclass PDF FREE with membership</div>
+  <a href="#join" class="btn-primary">Join Now →</a>
+</div>
+
+<script>
+  // Countdown timer
+  const endTime = new Date().getTime() + (4 * 86400 + 5 * 3600 + 50 * 60 + 7) * 1000;
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const diff = endTime - now;
+    if (diff <= 0) return;
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // Ticker
+  const tickers = [
+    { s:'GOLD', p:'$2,341', c:'', cls:'' },
+    { s:'BTC', p:'$73,293', c:'+7.24%', cls:'up' },
+    { s:'ETH', p:'$2,147.58', c:'+8.29%', cls:'up' },
+    { s:'SOL', p:'$91.58', c:'+7.47%', cls:'up' },
+    { s:'AVAX', p:'$9.61', c:'+4.08%', cls:'up' },
+    { s:'EUR/USD', p:'1.16973', c:'', cls:'' },
+    { s:'GBP/USD', p:'1.34080', c:'', cls:'' },
+    { s:'USD/JPY', p:'157.227', c:'', cls:'' },
+  ];
+  const t = document.getElementById('ticker');
+  let html = '';
+  for (let i = 0; i < 2; i++) {
+    tickers.forEach(item => {
+      html += `<div class="ticker-item">
+        <span class="ticker-symbol">${item.s}</span>
+        <span class="ticker-price">${item.p}</span>
+        ${item.c ? `<span class="${item.cls}">${item.c}</span>` : ''}
+      </div>`;
+    });
+  }
+  t.innerHTML = html;
+
+  // Scroll fade
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // Hide sticky bar near footer
+  const sticky = document.getElementById('sticky-bar');
+  window.addEventListener('scroll', () => {
+    const footer = document.querySelector('footer');
+    const footerTop = footer.getBoundingClientRect().top;
+    sticky.style.display = footerTop < window.innerHeight ? 'none' : 'flex';
+  });
+</script>
+</body>
+</html>

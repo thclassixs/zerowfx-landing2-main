@@ -205,12 +205,16 @@
    Mobile
    ============================================================ */
 @media (max-width: 768px) {
-  .navbar-toggle {
-    display: block;
+
+  /* Collapse grid to 2 columns: brand | cta-wrapper (hamburger) */
+  .navbar-container {
+    grid-template-columns: 1fr auto;
   }
 
+  /* Hide nav links list on mobile (it slides in as dropdown) */
   .navbar-menu {
-    /* Positioned right below the navbar */
+    /* Override grid placement — full-width fixed dropdown */
+    grid-column: 1 / -1;
     position: fixed;
     top: calc(var(--countdown-h) + var(--navbar-h));
     left: 0;
@@ -219,13 +223,15 @@
     flex-direction: column;
     padding: 28px 20px;
     gap: 18px;
-    /* Hidden by default: slide above and fade out */
     transform: translateY(-110%);
     opacity: 0;
     pointer-events: none;
     transition: transform 0.3s ease, opacity 0.3s ease;
     border-bottom: 1px solid rgba(201, 162, 39, 0.2);
     z-index: 999;
+    /* Remove justify-content:center for vertical layout */
+    justify-content: flex-start;
+    align-items: center;
   }
 
   .navbar-menu.open {
@@ -241,9 +247,34 @@
     text-align: center;
   }
 
-  .navbar-cta {
-    width: 100%;
+  /* Show hamburger on mobile */
+  .navbar-toggle {
+    display: block;
+    margin-left: 8px;
+  }
+
+  /* Hide CTA button on mobile (dropdown menu has its own CTA) */
+  .navbar-cta-wrapper .navbar-cta {
+    display: none;
+  }
+
+  /* Style the CTA inside the mobile dropdown */
+  .navbar-cta-mobile {
+    width: 200px;
     text-align: center;
     display: block;
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}
+
+/* On desktop: hide mobile-only CTA item and hamburger */
+@media (min-width: 769px) {
+  .navbar-toggle {
+    display: none;
+  }
+
+  .navbar-menu-cta-item {
+    display: none;
   }
 }
