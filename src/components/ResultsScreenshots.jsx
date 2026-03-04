@@ -100,16 +100,7 @@ const ResultsScreenshots = () => {
     };
   }, [language]);
 
-  const handleTelegramClick = () => {
-    // Track event in Google Analytics
-    if (window.gtag) {
-      window.gtag('event', 'cta_click', {
-        event_category: 'engagement',
-        event_label: 'screenshots_section_telegram'
-      });
-    }
-    window.open('https://t.me/Zerowfxgold', '_blank');
-  };
+
 
   // Double the images for seamless loop
   const duplicatedImages = [...images, ...images];

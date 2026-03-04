@@ -5,7 +5,7 @@ import sliderVideo from '../assets/video_2025-12-12_13-26-55.mp4'; // Use a sepa
 
 const Vidsec = () => {
   const { t } = useLanguage();
-  const [memberCount, setMemberCount] = useState(0);
+
   const [hasAnimated, setHasAnimated] = useState(false);
   const statsRef = useRef(null);
 
@@ -39,10 +39,7 @@ const Vidsec = () => {
     const timer = setInterval(() => {
       current += increment;
       if (current >= target) {
-        setMemberCount(target);
         clearInterval(timer);
-      } else {
-        setMemberCount(Math.floor(current));
       }
     }, 16);
   };
@@ -57,9 +54,6 @@ const Vidsec = () => {
     window.open('https://t.me/Zerowfxgold', '_blank');
   };
 
-  const formatNumber = (num) => {
-    return num.toLocaleString();
-  };
 
   return (
     <section className="secondvidsec">
