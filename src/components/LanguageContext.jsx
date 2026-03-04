@@ -15,10 +15,10 @@ export const useLanguage = () => {
 const detectBrowserLanguage = () => {
   // Get browser language
   const browserLang = navigator.language || navigator.userLanguage;
-  
+
   // Extract the primary language code (e.g., 'en' from 'en-US')
   const langCode = browserLang.split('-')[0].toLowerCase();
-  
+
   // Map to our supported languages
   if (langCode === 'ar') {
     return 'ar';
@@ -34,11 +34,11 @@ export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(() => {
     // First, check if there's a saved language preference
     const savedLanguage = localStorage.getItem('language');
-    
+
     if (savedLanguage) {
       return savedLanguage;
     }
-    
+
     // If no saved preference, detect browser language
     return detectBrowserLanguage();
   });
@@ -46,7 +46,7 @@ export const LanguageProvider = ({ children }) => {
   useEffect(() => {
     // Save language preference
     localStorage.setItem('language', language);
-    
+
     // Set dir attribute for RTL languages
     document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = language;
@@ -59,12 +59,16 @@ export const LanguageProvider = ({ children }) => {
     setLanguage(languages[nextIndex]);
   };
 
+  const changeLanguage = (lang) => {
+    setLanguage(lang);
+  };
+
   const t = (key) => {
     return translations[language][key] || key;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, cycleLanguage, t }}>
+    <LanguageContext.Provider value={{ language, cycleLanguage, changeLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );

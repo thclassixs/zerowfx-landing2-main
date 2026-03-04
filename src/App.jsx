@@ -12,8 +12,7 @@ import Results from './components/Results';
 import ResultsScreenshots from './components/ResultsScreenshots';
 import BrokerSection from './components/BrokerSection';
 import Footer from './components/Footer';
-import FloatingTelegram from './components/FloatingTelegram';
-import FloatingLanguage from './components/FloatingLanguage';
+
 import StickyCTABar from './components/StickyCTABar';
 import SecondVidSec from './components/SecondVideoSection';
 
@@ -35,8 +34,7 @@ function App() {
           <ResultsScreenshots />
           <BrokerSection />
           <Footer />
-          <FloatingTelegram />
-          <FloatingLanguage />
+
           <StickyCTABar />
         </div>
       </PriceProvider>

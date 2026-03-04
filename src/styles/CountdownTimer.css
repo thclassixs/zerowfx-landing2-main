@@ -1,272 +1,257 @@
-/* Countdown Timer - Top of Page */
-.countdown-timer {
+/* ============================================
+   Countdown Widget — Left-Side Floating Widget
+   ============================================ */
+
+.countdown-widget {
   position: fixed;
-  top: 0;
   left: 0;
-  right: 0;
-  background: linear-gradient(135deg, #168241, #168241);
-  padding: 0.75rem 1rem;
-  z-index: 1001;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1200;
+  display: flex;
+  align-items: stretch;
+  filter: drop-shadow(0 4px 24px rgba(0, 0, 0, 0.45));
+  transition: transform 0.3s ease;
 }
 
-.countdown-timer.scrolled {
-  padding: 0.625rem 1rem;
-}
-
-.countdown-container {
-  max-width: 1400px;
-  margin: 0 auto;
+/* ── Toggle Tab (always visible) ── */
+.countdown-toggle-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
+  width: 20px;
+  background: #168241;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 0 6px 6px 0;
+  color: #fff;
+  flex-shrink: 0;
+  transition: background 0.2s ease, width 0.2s ease;
+  outline: none;
 }
 
-.countdown-message {
-  color: #0A0A0A;
-  font-weight: 700;
-  font-size: 0.9375rem;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+.countdown-toggle-btn:hover {
+  background: #13723a;
+  width: 24px;
 }
 
-/* Offer Items - When NOT Scrolled */
-.countdown-offer-items {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-  opacity: 1;
-  max-height: 50px;
+.toggle-arrow {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s ease;
+}
+
+/* ── Widget Body ── */
+.countdown-widget-body {
+  background: linear-gradient(160deg, #111 0%, #1a1a1a 100%);
+  border: 1px solid rgba(22, 130, 65, 0.4);
+  border-left: none;
+  border-radius: 0;
   overflow: hidden;
-  transition: opacity 0.3s ease, max-height 0.3s ease;
+  width: 220px;
+  max-width: 220px;
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.3s ease,
+    max-width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 14px 14px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* Hide offer items when scrolled */
-.countdown-timer.scrolled .countdown-offer-items {
+/* ── Collapsed state ── */
+.countdown-widget.collapsed .countdown-widget-body {
+  width: 0;
+  max-width: 0;
   opacity: 0;
-  max-height: 0;
+  padding-left: 0;
+  padding-right: 0;
+  pointer-events: none;
 }
 
-.offer-item {
+/* ── Header Row ── */
+.countdown-widget-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  color: #0A0A0A;
+  gap: 7px;
+}
+
+.countdown-widget-icon {
+  flex-shrink: 0;
+  color: #168241;
+  display: flex;
+  align-items: center;
+}
+
+.countdown-widget-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.countdown-widget-title {
+  font-size: 0.6875rem;
   font-weight: 700;
-  font-size: 1rem;
+  color: #e0e0e0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex: 1;
   white-space: nowrap;
 }
 
-.checkmark-icon {
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
-  color: #0A0A0A;
-}
-
-.countdown-display {
+.countdown-hide-btn {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.35);
+  padding: 2px;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+  flex-shrink: 0;
 }
 
-.countdown-display.compact {
-  gap: 0.375rem;
+.countdown-hide-btn:hover {
+  color: #ff5a5a;
+  background: rgba(255, 90, 90, 0.1);
 }
 
-.time-unit {
+.countdown-hide-btn svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* ── Time Display ── */
+.countdown-widget-display {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: center;
+}
+
+.cw-time-unit {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: rgba(10, 10, 10, 0.2);
-  padding: 0.375rem 0.625rem;
-  border-radius: 0.375rem;
-  min-width: 50px;
+  background: rgba(22, 130, 65, 0.15);
+  border: 1px solid rgba(22, 130, 65, 0.3);
+  border-radius: 6px;
+  padding: 5px 7px 4px;
+  min-width: 38px;
+  transition: background 0.2s;
 }
 
-.countdown-display.compact .time-unit {
-  padding: 0.25rem 0.5rem;
-  min-width: 42px;
+.cw-time-unit:hover {
+  background: rgba(22, 130, 65, 0.25);
 }
 
-.time-value {
-  font-size: 1.25rem;
+.cw-time-value {
+  font-size: 1.1rem;
   font-weight: 800;
-  color: #0A0A0A;
+  color: #fff;
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
 }
 
-.countdown-display.compact .time-value {
-  font-size: 1rem;
-}
-
-.time-label {
-  font-size: 0.625rem;
-  color: #0A0A0A;
-  opacity: 0.8;
+.cw-time-label {
+  font-size: 0.5rem;
+  color: #168241;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-top: 0.125rem;
-  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+  font-weight: 700;
 }
 
-.countdown-display.compact .time-label {
-  font-size: 0.5625rem;
-}
-
-.time-separator {
-  font-size: 1.25rem;
+.cw-separator {
+  font-size: 1.1rem;
   font-weight: 800;
-  color: #0A0A0A;
+  color: #168241;
   line-height: 1;
-  margin: 0 0.25rem;
+  margin-bottom: 6px;
+  user-select: none;
 }
 
-.countdown-display.compact .time-separator {
-  font-size: 1rem;
-  margin: 0 0.125rem;
+/* ── Offer Items ── */
+.countdown-widget-offers {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-top: 1px solid rgba(22, 130, 65, 0.2);
+  padding-top: 8px;
 }
 
-/* Mobile Responsive */
-@media (max-width: 968px) {
-  .countdown-timer {
-    padding: 0.625rem 0.75rem;
-  }
-
-  .countdown-timer.scrolled {
-    padding: 0.5rem 0.75rem;
-  }
-
-  .countdown-container {
-    gap: 0.75rem;
-  }
-
-  .countdown-message {
-    font-size: 0.75rem;
-    text-align: center;
-    width: 100%;
-  }
-
-  .countdown-offer-items {
-    width: 100%;
-    justify-content: center;
-    gap: 0.5rem;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding: 0.25rem 0;
-  }
-
-  .countdown-offer-items::-webkit-scrollbar {
-    display: none;
-  }
-
-  .offer-item {
-    font-size: 0.6875rem;
-    flex-shrink: 0;
-  }
-
-  .checkmark-icon {
-    width: 14px;
-    height: 14px;
-  }
-
-  .countdown-display {
-    gap: 0.375rem;
-  }
-
-  .time-unit {
-    padding: 0.25rem 0.5rem;
-    min-width: 40px;
-  }
-
-  .countdown-display.compact .time-unit {
-    padding: 0.25rem 0.375rem;
-    min-width: 36px;
-  }
-
-  .time-value {
-    font-size: 1rem;
-  }
-
-  .countdown-display.compact .time-value {
-    font-size: 0.875rem;
-  }
-
-  .time-label {
-    font-size: 0.5rem;
-  }
-
-  .countdown-display.compact .time-label {
-    font-size: 0.4375rem;
-  }
-
-  .time-separator {
-    font-size: 1rem;
-    margin: 0 0.125rem;
-  }
-
-  .countdown-display.compact .time-separator {
-    font-size: 0.875rem;
-  }
+.cw-offer-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #c8c8c8;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.3;
 }
 
+.cw-check {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  color: #168241;
+}
+
+/* ── Restore Button (when fully hidden) ── */
+.countdown-restore-btn {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1200;
+  background: #168241;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  color: #fff;
+  padding: 10px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+  transition: background 0.2s, padding 0.2s;
+  outline: none;
+}
+
+.countdown-restore-btn:hover {
+  background: #13723a;
+  padding: 10px 12px;
+}
+
+.countdown-restore-btn svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ── Mobile tweaks ── */
 @media (max-width: 480px) {
-  .countdown-timer {
-    padding: 0.5rem 0.5rem;
+  .countdown-widget-body {
+    width: 190px;
+    max-width: 190px;
+    padding: 11px 11px 10px 11px;
   }
 
-  .countdown-timer.scrolled {
-    padding: 0.4rem 0.5rem;
+  .cw-time-value {
+    font-size: 0.95rem;
   }
 
-  .countdown-message {
-    font-size: 0.6875rem;
+  .cw-time-unit {
+    min-width: 33px;
+    padding: 4px 5px 3px;
   }
 
-  .countdown-offer-items {
-    gap: 0.375rem;
-  }
-
-  .offer-item {
+  .countdown-widget-title {
     font-size: 0.625rem;
-  }
-
-  .checkmark-icon {
-    width: 12px;
-    height: 12px;
-  }
-
-  .time-unit {
-    padding: 0.25rem 0.375rem;
-    min-width: 36px;
-  }
-
-  .countdown-display.compact .time-unit {
-    padding: 0.1875rem 0.3125rem;
-    min-width: 32px;
-  }
-
-  .time-value {
-    font-size: 0.875rem;
-  }
-
-  .countdown-display.compact .time-value {
-    font-size: 0.75rem;
-  }
-
-  .time-label {
-    font-size: 0.4375rem;
-  }
-
-  .countdown-display.compact .time-label {
-    font-size: 0.375rem;
   }
 }

@@ -43,16 +43,16 @@ const BrokerSection = () => {
     <section className={`broker-section ${isVisible ? 'visible' : ''}`} ref={sectionRef}>
       <div className="broker-container">
         <span className="broker-badge">RECOMMENDED BROKER</span>
-        
+
         <h2 className="broker-title">
           Start Trading with <span className="gold-text">100% Bonus</span>
         </h2>
-        
+
         <p className="broker-description">
-          Get a 100% deposit bonus when you sign up with XM - our trusted broker partner. 
+          Get a 100% deposit bonus when you sign up with XM - our trusted broker partner.
           Trade gold, forex, and indices with tight spreads and fast execution.
         </p>
-        
+
         <div className="broker-benefits">
           <div className="benefit-item">
             <span className="benefit-check">✓</span>
@@ -67,14 +67,14 @@ const BrokerSection = () => {
             <span>Fast Withdrawals</span>
           </div>
         </div>
-        
+
         <button className="broker-cta" onClick={handleCTAClick}>
           Claim Your 100% Bonus
           <span className="arrow">→</span>
         </button>
-        
+
         <p className="broker-disclaimer">
-          Trading involves risk. Partner code: CQMHK
+          Trading involves risk. Partner code: <span style={{ color: '#ffffff' }}>CQMHK</span>
         </p>
       </div>
     </section>

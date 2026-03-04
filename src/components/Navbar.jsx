@@ -1,28 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLanguage } from './LanguageContext';
 import '../styles/Navbar.css';
+import ukFlag from '../assets/flags/uk.webp';
+import saFlag from '../assets/flags/sa.webp';
+import frFlag from '../assets/flags/fr.webp';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [countdownHeight, setCountdownHeight] = useState(0);
-
-  // Dynamically measure the countdown banner height to eliminate the gap
-  useEffect(() => {
-    const countdown = document.querySelector('.countdown-timer');
-    if (!countdown) return;
-
-    const updateHeight = () => {
-      const h = countdown.getBoundingClientRect().height;
-      setCountdownHeight(h);
-      // Keep the CSS variable in sync so .navbar-spacer stays correct
-      document.documentElement.style.setProperty('--countdown-h', `${h}px`);
-    };
-    updateHeight();
-
-    const observer = new ResizeObserver(updateHeight);
-    observer.observe(countdown);
-    return () => observer.disconnect();
-  }, []);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
+  const { language, changeLanguage } = useLanguage();
+  const langRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,6 +18,16 @@ const Navbar = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (langRef.current && !langRef.current.contains(event.target)) {
+        setLangMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const scrollToSection = (sectionClass) => {
@@ -40,11 +38,11 @@ const Navbar = () => {
     }
   };
 
+  const flagMap = { en: ukFlag, ar: saFlag, fr: frFlag };
+  const nameMap = { en: 'EN', ar: 'عر', fr: 'FR' };
+
   return (
-    <nav
-      className={`navbar ${scrolled ? 'scrolled' : ''}`}
-      style={{ top: countdownHeight || undefined }}
-    >
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         {/* Left: Brand */}
         <div className="navbar-brand">
@@ -52,28 +50,66 @@ const Navbar = () => {
           <span className="navbar-title">Zerowfx</span>
         </div>
 
-        {/* Center: Nav links (hidden on mobile, replaced by hamburger) */}
-        <ul
-          className={`navbar-menu ${menuOpen ? 'open' : ''}`}
-          style={{ top: countdownHeight ? countdownHeight + 70 : undefined }}
-        >
+        {/* Center: Nav links */}
+        <ul className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
           <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('.about'); }}>About</a></li>
           <li><a href="#results" onClick={(e) => { e.preventDefault(); scrollToSection('.results'); }}>Results</a></li>
           <li><a href="#setups" onClick={(e) => { e.preventDefault(); scrollToSection('.trading-setups'); }}>Setups</a></li>
           <li><a href="#broker" onClick={(e) => { e.preventDefault(); scrollToSection('.broker-section'); }}>Broker</a></li>
-          <li className="navbar-menu-cta-item">
-            <a href="https://t.me/zerowfx" target="_blank" rel="noopener noreferrer" className="navbar-cta navbar-cta-mobile">
-              Join Telegram
-            </a>
-          </li>
         </ul>
 
-        {/* Right: CTA + Mobile hamburger */}
+        {/* Right: Language + CTA + Hamburger */}
         <div className="navbar-cta-wrapper">
-          <a href="https://t.me/zerowfx" target="_blank" rel="noopener noreferrer" className="navbar-cta">
-            Join Telegram
-          </a>
-          <button className="navbar-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+          {/* Language switcher Dropdown */}
+          <div className="navbar-lang-container" ref={langRef}>
+            <button
+              className="navbar-lang-btn"
+              onClick={() => setLangMenuOpen(!langMenuOpen)}
+              aria-expanded={langMenuOpen}
+              aria-label="Toggle language menu"
+              title="Change language"
+            >
+              <img
+                src={flagMap[language] || ukFlag}
+                alt={language}
+                className="navbar-lang-flag"
+              />
+              <span className="navbar-lang-name">{nameMap[language] || 'EN'}</span>
+              <svg
+                className={`navbar-lang-arrow ${langMenuOpen ? 'open' : ''}`}
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            {/* Dropdown Menu */}
+            <ul className={`navbar-lang-dropdown ${langMenuOpen ? 'open' : ''}`}>
+              {Object.keys(flagMap).map((lang) => (
+                <li key={lang}>
+                  <button
+                    className={`lang-dropdown-item ${language === lang ? 'active' : ''}`}
+                    onClick={() => {
+                      changeLanguage(lang);
+                      setLangMenuOpen(false);
+                    }}
+                  >
+                    <img src={flagMap[lang]} alt={lang} className="navbar-lang-flag" />
+                    <span>{nameMap[lang]}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <button className="navbar-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
             <span className={`hamburger ${menuOpen ? 'open' : ''}`}></span>
           </button>
         </div>
