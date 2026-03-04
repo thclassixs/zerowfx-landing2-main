@@ -1,0 +1,170 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { useLanguage } from './LanguageContext';
+import '../styles/Hero.css';
+import img0 from '../assets/00.webp'
+import img1 from '../assets/01.webp';
+import img2 from '../assets/02.webp';
+import img3 from '../assets/03.webp';
+import img4 from '../assets/04.webp';
+import img5 from '../assets/05.webp';
+import img6 from '../assets/06.webp';
+import img7 from '../assets/07.webp';
+import heroVid from '../assets/bg-vid-web-friendly.webm';
+
+const Hero = () => {
+  const { t } = useLanguage();
+  const [memberCount, setMemberCount] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const statsRef = useRef(null);
+
+  const images = [img0, img1, img2, img3, img4, img5, img6, img7];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true);
+            animateCount();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const currentElement = statsRef.current;
+
+    if (currentElement) {
+      observer.observe(currentElement);
+    }
+
+    return () => {
+      if (currentElement) {
+        observer.unobserve(currentElement);
+      }
+    };
+  }, [hasAnimated]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  const animateCount = () => {
+    const target = 20000;
+    const duration = 2000;
+    const increment = target / (duration / 16);
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        setMemberCount(target);
+        clearInterval(timer);
+      } else {
+        setMemberCount(Math.floor(current));
+      }
+    }, 16);
+  };
+
+  const handleTelegramClick = () => {
+    // Track event in Google Analytics
+    if (window.gtag) {
+      window.gtag('event', 'cta_click', {
+        event_category: 'engagement',
+        event_label: 'hero_section_telegram'
+      });
+    }
+    window.open('https://t.me/Zerowfxgold', '_blank');
+  };
+
+  const formatNumber = (num) => {
+    return num.toLocaleString();
+  };
+
+  return (
+    <section className="hero">
+      <video className="hero-video" autoPlay loop muted playsInline>
+        <source src={heroVid} type="video/webm" />
+      </video>
+
+      <div className="hero-overlay"></div>
+
+      <div className="hero-content">
+        <div className="hero-text">
+          <h1 className="hero-title">
+            {t('heroTitle1')}
+            <br />
+            <span className="gradient-text">{t('heroTitle2')}</span>
+          </h1>
+          
+          <p className="hero-subtitle">
+            {t('heroSubtitle')}
+          </p>
+
+          <div className="hero-stats" ref={statsRef}>
+            <div className="stat">
+              <div className="stat-value">{formatNumber(memberCount)}+</div>
+              <div className="stat-label">{t('heroMembers')}</div>
+            </div>
+            <div className="stat">
+              <div className="stat-value">24/7</div>
+              <div className="stat-label">{t('heroSupport')}</div>
+            </div>
+          </div>
+
+          <div className="hero-buttons">
+            <button className="btn-primary" onClick={handleTelegramClick}>
+              <svg className="telegram-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+              </svg>
+              {t('heroButton')}
+            </button>
+          </div>
+
+          <div className="trust-indicators">
+            <div className="indicator">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+              </svg>
+              <span>{t('heroVerified')}</span>
+            </div>
+            <div className="indicator">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+              </svg>
+              <span>{t('heroTransparent')}</span>
+            </div>
+            <div className="indicator">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+              </svg>
+              <span>{t('heroRealTime')}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="hero-image">
+          <div className="image-border">
+            <div className="image-slider">
+              {images.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`Trader ${index + 1}`}
+                  className={`slider-image ${index === currentImageIndex ? 'active' : ''}`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;

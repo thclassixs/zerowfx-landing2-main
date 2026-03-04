@@ -1,0 +1,125 @@
+.broker-section {
+  background-color: #0a0a0a;
+  padding: 80px 20px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.broker-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.broker-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.broker-badge {
+  display: inline-block;
+  background-color: #2a2a1a;
+  color: #10b981;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 8px 20px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.broker-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.broker-title .gold-text {
+  color: #10b981;
+  font-style: italic;
+}
+
+.broker-description {
+  color: #9a9a9a;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 32px auto;
+}
+
+.broker-benefits {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #9a9a9a;
+  font-size: 1rem;
+}
+
+.benefit-check {
+  color: #10b981;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.broker-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #10b981;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 16px 40px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.broker-cta:hover {
+  background-color: #059669;
+  transform: scale(1.02);
+}
+
+.broker-cta .arrow {
+  font-size: 1.2rem;
+}
+
+.broker-disclaimer {
+  margin-top: 20px;
+  color: #666666;
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .broker-title {
+    font-size: 1.8rem;
+  }
+
+  .broker-description {
+    font-size: 1rem;
+  }
+
+  .broker-benefits {
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .broker-cta {
+    padding: 14px 32px;
+    font-size: 1rem;
+  }
+}

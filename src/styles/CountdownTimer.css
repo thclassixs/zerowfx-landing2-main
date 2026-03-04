@@ -1,0 +1,272 @@
+/* Countdown Timer - Top of Page */
+.countdown-timer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #168241, #168241);
+  padding: 0.75rem 1rem;
+  z-index: 1001;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.countdown-timer.scrolled {
+  padding: 0.625rem 1rem;
+}
+
+.countdown-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.countdown-message {
+  color: #0A0A0A;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Offer Items - When NOT Scrolled */
+.countdown-offer-items {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  opacity: 1;
+  max-height: 50px;
+  overflow: hidden;
+  transition: opacity 0.3s ease, max-height 0.3s ease;
+}
+
+/* Hide offer items when scrolled */
+.countdown-timer.scrolled .countdown-offer-items {
+  opacity: 0;
+  max-height: 0;
+}
+
+.offer-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #0A0A0A;
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.checkmark-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: #0A0A0A;
+}
+
+.countdown-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.countdown-display.compact {
+  gap: 0.375rem;
+}
+
+.time-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(10, 10, 10, 0.2);
+  padding: 0.375rem 0.625rem;
+  border-radius: 0.375rem;
+  min-width: 50px;
+}
+
+.countdown-display.compact .time-unit {
+  padding: 0.25rem 0.5rem;
+  min-width: 42px;
+}
+
+.time-value {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0A0A0A;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-display.compact .time-value {
+  font-size: 1rem;
+}
+
+.time-label {
+  font-size: 0.625rem;
+  color: #0A0A0A;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.125rem;
+  font-weight: 600;
+}
+
+.countdown-display.compact .time-label {
+  font-size: 0.5625rem;
+}
+
+.time-separator {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0A0A0A;
+  line-height: 1;
+  margin: 0 0.25rem;
+}
+
+.countdown-display.compact .time-separator {
+  font-size: 1rem;
+  margin: 0 0.125rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+  .countdown-timer {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .countdown-timer.scrolled {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .countdown-container {
+    gap: 0.75rem;
+  }
+
+  .countdown-message {
+    font-size: 0.75rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .countdown-offer-items {
+    width: 100%;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0.25rem 0;
+  }
+
+  .countdown-offer-items::-webkit-scrollbar {
+    display: none;
+  }
+
+  .offer-item {
+    font-size: 0.6875rem;
+    flex-shrink: 0;
+  }
+
+  .checkmark-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .countdown-display {
+    gap: 0.375rem;
+  }
+
+  .time-unit {
+    padding: 0.25rem 0.5rem;
+    min-width: 40px;
+  }
+
+  .countdown-display.compact .time-unit {
+    padding: 0.25rem 0.375rem;
+    min-width: 36px;
+  }
+
+  .time-value {
+    font-size: 1rem;
+  }
+
+  .countdown-display.compact .time-value {
+    font-size: 0.875rem;
+  }
+
+  .time-label {
+    font-size: 0.5rem;
+  }
+
+  .countdown-display.compact .time-label {
+    font-size: 0.4375rem;
+  }
+
+  .time-separator {
+    font-size: 1rem;
+    margin: 0 0.125rem;
+  }
+
+  .countdown-display.compact .time-separator {
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .countdown-timer {
+    padding: 0.5rem 0.5rem;
+  }
+
+  .countdown-timer.scrolled {
+    padding: 0.4rem 0.5rem;
+  }
+
+  .countdown-message {
+    font-size: 0.6875rem;
+  }
+
+  .countdown-offer-items {
+    gap: 0.375rem;
+  }
+
+  .offer-item {
+    font-size: 0.625rem;
+  }
+
+  .checkmark-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .time-unit {
+    padding: 0.25rem 0.375rem;
+    min-width: 36px;
+  }
+
+  .countdown-display.compact .time-unit {
+    padding: 0.1875rem 0.3125rem;
+    min-width: 32px;
+  }
+
+  .time-value {
+    font-size: 0.875rem;
+  }
+
+  .countdown-display.compact .time-value {
+    font-size: 0.75rem;
+  }
+
+  .time-label {
+    font-size: 0.4375rem;
+  }
+
+  .countdown-display.compact .time-label {
+    font-size: 0.375rem;
+  }
+}

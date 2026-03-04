@@ -1,0 +1,91 @@
+/* Sticky CTA Bar */
+.sticky-cta-bar {
+  position: fixed;
+  bottom: -100px;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #168241, #168241);
+  padding: 1rem 2rem;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+  transition: bottom 0.4s ease;
+}
+
+.sticky-cta-bar.visible {
+  bottom: 0;
+}
+
+.sticky-cta-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.sticky-cta-text {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.sticky-message {
+  color: #0A0A0A;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  letter-spacing: 0.02em;
+}
+
+.sticky-cta-button {
+  background: #0A0A0A;
+  color: #168241;
+  padding: 0.875rem 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(10, 10, 10, 0.3);
+}
+
+.sticky-cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(10, 10, 10, 0.5);
+  background: #1A1A1A;
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+  .sticky-cta-bar {
+    padding: 0.875rem 1.25rem;
+  }
+
+  .sticky-cta-content {
+    flex-direction: column;
+    gap: 0.875rem;
+    align-items: stretch;
+  }
+
+  .sticky-cta-text {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .sticky-message {
+    font-size: 0.8125rem;
+  }
+
+  .sticky-cta-button {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+  }
+}

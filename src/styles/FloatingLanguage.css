@@ -1,0 +1,96 @@
+/* Floating Language Button */
+.floating-language {
+  position: fixed;
+  bottom: 2rem;
+  right: 7rem; /* Position next to Telegram button with spacing */
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, #168241, #D68A3F);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(196, 122, 51, 0.4);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  border: none;
+}
+
+.floating-language:hover {
+  transform: scale(1.1);
+}
+
+.language-flag {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.05em;
+}
+
+/* Tooltip */
+.language-tooltip {
+  position: absolute;
+  right: 80px;
+  background: #2A1B12;
+  color: #F2E3D5;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.floating-language:hover .language-tooltip {
+  opacity: 1;
+}
+
+/* Pulse Animation */
+.floating-language::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  opacity: 0.4;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+  .floating-language {
+    bottom: 1.5rem;
+    right: auto;
+    left: 1rem; /* Position on the left for mobile */
+    width: 50px;
+    height: 50px;
+  }
+
+  .language-flag {
+    font-size: 16px;
+  }
+
+  .language-tooltip {
+    right: auto;
+    left: 70px; /* Position tooltip to the right of button on mobile */
+    font-size: 0.8125rem;
+  }
+}

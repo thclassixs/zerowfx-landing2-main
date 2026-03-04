@@ -1,0 +1,283 @@
+:root {
+  --dark-brown: #2A1B12;
+  --medium-brown: #5A3C24;
+  --warm-orange: #168241;
+  --beige: #F2E3D5;
+  --white: #FFFFFF;
+  --accent-gold: #168241;
+  --dark-bg: #0A0A0A;
+}
+
+/* Results Screenshots Section */
+.results-screenshots {
+  padding: 2.5rem 0;
+  background: #000000;
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+  overflow: hidden;
+}
+
+.results-screenshots.visible {
+  opacity: 1;
+}
+
+.results-screenshots::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--warm-orange), transparent);
+}
+
+.results-screenshots-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Header */
+.results-screenshots-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  padding: 0 2rem;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.results-screenshots.visible .results-screenshots-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(196, 122, 51, 0.15);
+  border: 1px solid var(--warm-orange);
+  color: var(--warm-orange);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.25rem;
+  border-radius: 2rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+}
+
+.badge-icon {
+  font-size: 1rem;
+}
+
+.section-title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  color: #fff;
+  font-weight: 900;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  background: #fff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-size: 0.9375rem;
+  color: #fff;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.4;
+}
+
+/* Auto-Scrolling Container */
+.screenshots-scroll-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+.results-screenshots.visible .screenshots-scroll-container {
+  opacity: 1;
+  transition-delay: 0.3s;
+}
+
+/* Gradient Overlays */
+.screenshots-scroll-container::before,
+.screenshots-scroll-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.screenshots-scroll-container::before {
+  left: 0;
+  background: linear-gradient(90deg, #ffdcb8 0%, transparent 100%);
+}
+
+.screenshots-scroll-container::after {
+  right: 0;
+  background: linear-gradient(270deg, #ffdcb8 0%, transparent 100%);
+}
+
+/* Scrolling Track - NO CSS ANIMATION, JavaScript controls it */
+.screenshots-scroll {
+  display: flex;
+  gap: 1rem;
+  will-change: transform;
+}
+
+/* Screenshot Items */
+.screenshot-item {
+  flex-shrink: 0;
+  width: 280px;
+  height: 380px;
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: rgba(196, 122, 51, 0.05);
+  border: 1px solid rgba(196, 122, 51, 0.2);
+  transition: all 0.4s ease;
+}
+
+.screenshot-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+/* CTA Section */
+.screenshots-cta {
+  text-align: center;
+  padding: 1.5rem 1.25rem;
+  margin: 0 2rem;
+  background: rgba(196, 122, 51, 0.08);
+  border-radius: 0.5rem;
+  border: 1px solid rgba(196, 122, 51, 0.3);
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.results-screenshots.visible .screenshots-cta {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 0.5s;
+}
+
+.cta-text {
+  font-size: 1rem;
+  color: var(--dark-bg);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.cta-telegram-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  background: linear-gradient(135deg, var(--warm-orange), var(--accent-gold));
+  color: var(--dark-bg);
+  padding: 0.875rem 1.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(196, 122, 51, 0.4);
+}
+
+.cta-telegram-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(196, 122, 51, 0.6);
+}
+
+.cta-telegram-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+  .results-screenshots {
+    padding: 2rem 0;
+  }
+
+  .results-screenshots-header {
+    margin-bottom: 1.25rem;
+    padding: 0 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.875rem;
+  }
+
+  .screenshot-item {
+    width: 240px;
+    height: 320px;
+  }
+
+  .screenshots-scroll {
+    gap: 0.75rem;
+  }
+
+  .screenshots-scroll-container::before,
+  .screenshots-scroll-container::after {
+    width: 50px;
+  }
+
+  .screenshots-cta {
+    padding: 1.25rem 1rem;
+    margin: 0 1.5rem;
+  }
+
+  .cta-text {
+    font-size: 0.9375rem;
+  }
+
+  .cta-telegram-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.375rem;
+  }
+
+  .screenshot-item {
+    width: 220px;
+    height: 300px;
+  }
+
+  .screenshots-scroll-container::before,
+  .screenshots-scroll-container::after {
+    width: 30px;
+  }
+
+  .screenshots-cta {
+    padding: 1rem 0.875rem;
+  }
+}

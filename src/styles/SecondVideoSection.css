@@ -1,0 +1,109 @@
+/* ============================================================
+   Second Video Section
+   Uses the same shared classes: .hero-content, .hero-image,
+   .hero-text, .image-border, .slider-video, .trust-indicators,
+   .hero-buttons, .btn-primary
+   This file owns: .secondvidsec and .hero-list
+   ============================================================ */
+
+.secondvidsec {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #000000;
+  padding: 4rem 0;
+}
+
+/* Dark background overrides for text/UI inside this section */
+.secondvidsec .indicator {
+  color: #aaa;
+}
+
+.secondvidsec .hero-subtitle {
+  color: #ccc;
+}
+
+
+/* ============================================================
+   Override .hero-content grid for dark background section
+   (grid is already set by Videosection.css; this reverses
+   the column order so video is on the LEFT here)
+   ============================================================ */
+.secondvidsec .hero-content {
+  grid-template-columns: 0.9fr 1.1fr;
+}
+
+/* ============================================================
+   Feature list
+   ============================================================ */
+.hero-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0 2rem;
+}
+
+.hero-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+  color: #e8e8e8;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.hero-list li::before {
+  content: "✔";
+  color: #168241;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  line-height: 1.5;
+}
+
+.new-tag {
+  background-color: #168241;
+  color: white;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-left: 0.25rem;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   Responsive – Tablet (≤ 968px)
+   ============================================================ */
+@media (max-width: 968px) {
+  .secondvidsec {
+    padding: 3rem 0;
+    min-height: auto;
+  }
+
+  /* Restore single column on mobile — video first */
+  .secondvidsec .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 0 1.5rem;
+  }
+
+  .secondvidsec .hero-image {
+    order: -1;
+    justify-content: center;
+  }
+
+  .hero-list li {
+    font-size: 0.95rem;
+  }
+}
+
+/* ============================================================
+   Responsive – Mobile (≤ 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .hero-list li {
+    font-size: 0.875rem;
+  }
+}

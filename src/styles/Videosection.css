@@ -1,0 +1,312 @@
+/* ============================================================
+   Video Section (first hero section)
+   ============================================================ */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #ffffff;
+  padding: 4rem 0;
+}
+
+/* ============================================================
+   Two-column grid layout
+   ============================================================ */
+.hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-text {
+  animation: fadeInUp 1s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeInRight 1s ease-out;
+  position: relative;
+}
+
+/* ============================================================
+   Image / Video card
+   ============================================================ */
+.image-border {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  height: 480px;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+}
+
+.image-slider {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slider-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: 1rem;
+}
+
+/* ============================================================
+   Typography
+   ============================================================ */
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  color: #0a0a0a;
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #168241 0%, #1db954 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #333;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 560px;
+  font-weight: 500;
+}
+
+/* ============================================================
+   CTA Button
+   ============================================================ */
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #168241, #1db954);
+  color: #fff;
+  padding: 1.1rem 2.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  box-shadow: 0 8px 25px rgba(22, 130, 65, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(22, 130, 65, 0.55);
+}
+
+.telegram-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   Trust Indicators
+   ============================================================ */
+.trust-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #555;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.indicator svg {
+  color: #168241;
+}
+
+/* ============================================================
+   Email Form
+   ============================================================ */
+.email-form-container {
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+}
+
+.email-form-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.email-form {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.email-input {
+  flex: 1;
+  padding: 0.9rem 1rem;
+  border-radius: 0.5rem;
+  border: 1.5px solid rgba(22, 130, 65, 0.35);
+  background: rgba(0, 0, 0, 0.04);
+  color: #0a0a0a;
+  font-size: 1rem;
+}
+
+.email-input::placeholder {
+  color: #888;
+}
+
+.email-submit {
+  background: #168241;
+  color: white;
+  font-weight: 700;
+  padding: 0 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.email-submit:hover {
+  background: #1db954;
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ============================================================
+   Responsive – Tablet (≤ 968px)
+   ============================================================ */
+@media (max-width: 968px) {
+  .hero {
+    padding: 3rem 0;
+    min-height: auto;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    padding: 0 1.5rem;
+  }
+
+  .hero-image {
+    order: -1;
+    justify-content: center;
+  }
+
+  .image-border {
+    max-width: 300px;
+    height: 360px;
+  }
+
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .btn-primary {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .trust-indicators {
+    gap: 1rem;
+  }
+
+  .email-form {
+    flex-direction: column;
+  }
+
+  .email-submit {
+    padding: 0.9rem 1.5rem;
+  }
+}
+
+/* ============================================================
+   Responsive – Mobile (≤ 480px)
+   ============================================================ */
+@media (max-width: 480px) {
+  .image-border {
+    max-width: 260px;
+    height: 300px;
+  }
+
+  .hero-title {
+    font-size: 1.875rem;
+  }
+
+  .indicator {
+    font-size: 0.8rem;
+  }
+}
