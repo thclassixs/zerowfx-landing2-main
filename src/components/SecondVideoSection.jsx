@@ -69,7 +69,10 @@ const Vidsec = () => {
                 src={sliderVideo}
                 controls
                 playsInline
-                preload="auto"
+                preload="metadata"
+                muted
+                autoPlay
+                onPlay={(e) => { e.target.pause(); e.target.currentTime = 0; }}
               />
             </div>
           </div>
