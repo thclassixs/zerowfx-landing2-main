@@ -1020,5 +1020,19 @@
     "country": "Morocco",
     "countryCode": "MA",
     "createdAt": "2026-03-05T05:57:26.229Z"
+  },
+  {
+    "email": "testuser_api_check@example.com",
+    "ip": "::1",
+    "country": "Unknown",
+    "countryCode": "XX",
+    "createdAt": "2026-03-05T06:55:03.261Z"
+  },
+  {
+    "email": "curl_test@example.com",
+    "ip": "::1",
+    "country": "Unknown",
+    "countryCode": "XX",
+    "createdAt": "2026-03-05T07:03:08.782Z"
   }
 ]
