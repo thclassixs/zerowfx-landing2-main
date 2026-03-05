@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Intellict - Asset Registry</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #000
+            color: #fff;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(3px);
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00ff00;
+            font-size: 3.2em;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px #00ff00;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+
+        .refresh-btn {
+            display: block;
+            margin: 0 auto 30px;
+            background: linear-gradient(to bottom, #00ff00, #00cc00);
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.6);
+            transition: all 0.4s;
+            letter-spacing: 1px;
+        }
+
+        .refresh-btn:hover {
+            background: linear-gradient(to bottom, #00ff33, #00ff00);
+            transform: translateY(-4px);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.9);
+        }
+
+        .refresh-btn:active {
+            transform: translateY(0);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(17, 17, 17, 0.9);
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+            border: 1px solid #003300;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #004400;
+        }
+
+        th {
+            background: #00ff00;
+            color: black;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.1em;
+            text-shadow: 0 0 8px #000;
+        }
+
+        tr:hover {
+            background: rgba(0, 255, 0, 0.15);
+            transition: background 0.3s;
+        }
+
+        td {
+            color: #ddd;
+            font-size: 1.05em;
+        }
+
+        .status {
+            text-align: center;
+            color: #66ff66;
+            margin-top: 20px;
+            font-weight: bold;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="overlay"></div>
+
+    <div class="container">
+        <h1>ZEROWFX Terminal</h1>
+        <p class="subtitle">Classified Asset Registry</p>
+
+        <button class="refresh-btn" onclick="loadSubscribers()">Refresh Email List</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Asset Identifier (Email)</th>
+                </tr>
+            </thead>
+            <tbody id="email-table">
+                <!-- Filled by JavaScript -->
+            </tbody>
+        </table>
+
+        <p class="status" id="status">No email currently registered.</p>
+    </div>
+
+    <script>
+        function loadSubscribers() {
+            const tbody = document.getElementById("email-table");
+            const status = document.getElementById("status");
+            tbody.innerHTML = "<tr><td>Loading intelligence data...</td></tr>";
+            status.style.display = "none";
+
+            fetch("/subscribers", { credentials: "include" })
+                .then(res => {
+                    if (!res.ok) throw new Error("Unauthorized or server error");
+                    return res.json();
+                })
+                .then(data => {
+                    tbody.innerHTML = "";
+
+                    if (data.length === 0) {
+                        status.textContent = "No assets currently registered.";
+                        status.style.display = "block";
+                        return;
+                    }
+
+                    data.forEach(email => {
+                        const row = document.createElement("tr");
+                        row.innerHTML = `<td>${email.email}</td>`;
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(err => {
+                    tbody.innerHTML = "<tr><td style='color:#66ff66;'>Access Denied or Connection Failure</td></tr>";
+                    status.textContent = "Error retrieving classified data.";
+                    status.style.display = "block";
+                });
+        }
+
+        // Load on page open
+        loadSubscribers();
+    </script>
+
+</body>
+</html>

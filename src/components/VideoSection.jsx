@@ -7,6 +7,9 @@ const Vidsec = () => {
   const { t } = useLanguage();
 
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [email, setEmail] = useState('');
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const statsRef = useRef(null);
 
   useEffect(() => {
@@ -54,7 +57,44 @@ const Vidsec = () => {
     window.open('https://t.me/Zerowfxgold', '_blank');
   };
 
+  const handleEmailSubmit = async (e) => {
+    e.preventDefault();
+    if (!email || isSubmitting) return;
 
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSubmitStatus('success');
+        setEmail('');
+        // Track in Google Analytics
+        if (window.gtag) {
+          window.gtag('event', 'subscribe', {
+            event_category: 'engagement',
+            event_label: 'email_subscription'
+          });
+        }
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Subscribe error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <section className="hero">
@@ -77,16 +117,27 @@ const Vidsec = () => {
               Get market insights + enter our $50 giveaway every 2  weeks 🎁
             </h3>
 
-            <form className="email-form" onSubmit={(e) => e.preventDefault()}>
+            <form className="email-form" onSubmit={handleEmailSubmit}>
               <input
                 type="email"
                 className="email-input"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isSubmitting}
                 required
               />
-              <button className="email-submit">Submit</button>
+              <button className="email-submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Sending...' : 'Submit'}
+              </button>
             </form>
-
+            
+            {submitStatus === 'success' && (
+              <p className="email-success">✅ You're in! Check your inbox.</p>
+            )}
+            {submitStatus === 'error' && (
+              <p className="email-error">❌ Something went wrong. Try again.</p>
+            )}
 
           </div>
 

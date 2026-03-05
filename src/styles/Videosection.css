@@ -310,3 +310,26 @@
     font-size: 0.8rem;
   }
 }
+/* Email form feedback messages */
+.email-success {
+  color: #4ade80;
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.email-error {
+  color: #f87171;
+  font-size: 0.9rem;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.email-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.email-input:disabled {
+  opacity: 0.6;
+}
