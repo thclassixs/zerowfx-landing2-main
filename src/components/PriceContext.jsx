@@ -19,13 +19,13 @@ export const PriceProvider = ({ children }) => {
     if (cached) {
       const { data, timestamp } = JSON.parse(cached);
       const now = Date.now();
-      
+
       // Check if cache is still valid (less than 5 minutes old)
       if (now - timestamp < CACHE_DURATION) {
         return data;
       }
     }
-    
+
     // Default empty state
     return {
       gold: { price: null, change: null },
@@ -52,7 +52,7 @@ export const PriceProvider = ({ children }) => {
 
   const fetchPrices = useCallback(async () => {
     const now = Date.now();
-    
+
     // Don't fetch if we just fetched recently (within 1 minute)
     if (lastFetch && now - lastFetch < 60000) {
       return;
@@ -61,25 +61,11 @@ export const PriceProvider = ({ children }) => {
     setIsLoading(true);
 
     try {
-      // Fetch Gold from goldprice.org
-      let goldPrice = null;
-      let goldChange = null;
-      try {
-        const goldResponse = await fetch('https://data-asg.goldprice.org/dbXRates/USD');
-        const goldData = await goldResponse.json();
-        if (goldData && goldData.items && goldData.items[0]) {
-          goldPrice = goldData.items[0].xauPrice;
-          goldChange = goldData.items[0].pcXau;
-        }
-      } catch (err) {
-        console.error('Error fetching gold:', err);
-      }
-
-      // Fetch Crypto from CoinGecko
+      // Fetch Gold and Crypto from CoinGecko (using pax-gold as proxy)
       let cryptoData = {};
       try {
         const cryptoResponse = await fetch(
-          'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,avalanche-2&vs_currencies=usd&include_24hr_change=true'
+          'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,avalanche-2,pax-gold&vs_currencies=usd&include_24hr_change=true'
         );
         cryptoData = await cryptoResponse.json();
       } catch (err) {
@@ -104,8 +90,8 @@ export const PriceProvider = ({ children }) => {
 
       const newPrices = {
         gold: {
-          price: goldPrice,
-          change: goldChange
+          price: cryptoData['pax-gold']?.usd || null,
+          change: cryptoData['pax-gold']?.usd_24h_change || null
         },
         btc: {
           price: cryptoData.bitcoin?.usd || null,
@@ -157,7 +143,7 @@ export const PriceProvider = ({ children }) => {
     // Fetch on mount if cache is expired
     const cached = localStorage.getItem('marketPrices');
     const shouldFetch = !cached || (Date.now() - lastFetch > CACHE_DURATION);
-    
+
     if (shouldFetch) {
       fetchPrices();
     }
