@@ -19,9 +19,7 @@ const brokers = [
         features: [
             '100% Deposit Bonus up to $500',
             'Ultra-low spreads from 0.0 pips',
-            'Free VPS for active traders',
             'Instant withdrawals',
-            '$30 No-Deposit Bonus',
         ],
         ctaLabel: 'Open Account – Get 100% Bonus',
         ctaLink: 'https://affs.click/X3LJB',

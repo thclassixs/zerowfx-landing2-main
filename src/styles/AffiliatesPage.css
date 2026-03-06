@@ -665,25 +665,6 @@
         gap: 1.75rem;
     }
 
-    /* Featured card spans full width on desktop */
-    .afp-cards-grid .afp-card--featured {
-        grid-column: 1 / -1;
-    }
-
-    .afp-cards-grid .afp-card--featured .afp-card-header {
-        flex-wrap: nowrap;
-        align-items: center;
-    }
-
-    .afp-cards-grid .afp-card--featured .afp-card-desc {
-        font-size: 1rem;
-    }
-
-    .afp-cards-grid .afp-card--featured .afp-features {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        column-gap: 2rem;
-    }
 
     .afp-card {
         padding: 2rem;
