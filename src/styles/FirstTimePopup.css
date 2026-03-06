@@ -1,0 +1,204 @@
+/* FirstTimePopup.css */
+.ftp-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 999999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: fadeInOverlay 0.5s ease forwards;
+}
+
+.ftp-modal {
+    background: #0d0f0d;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    border-radius: 1rem;
+    padding: 3.5rem 2.5rem;
+    width: 90%;
+    max-width: 650px;
+    position: relative;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    transform: translateY(30px) scale(0.95);
+    opacity: 0;
+    animation: popInModal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.ftp-close-btn {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: #666;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.ftp-close-btn:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.ftp-badge {
+    display: inline-block;
+    background: #1c261c;
+    color: #10b981;
+    padding: 0.5rem 1.25rem;
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+}
+
+.ftp-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.ftp-title .gold-text {
+    color: #10b981;
+    font-style: italic;
+}
+
+.ftp-description {
+    font-size: 1.1rem;
+    color: #a3a3a3;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 550px;
+}
+
+.ftp-benefits {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.ftp-benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    color: #c9c9c9;
+}
+
+.ftp-benefit-check {
+    color: #10b981;
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.ftp-cta {
+    background: #1fca64;
+    color: #ffffff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 1.1rem 2.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 40px rgba(31, 202, 100, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.ftp-cta .arrow {
+    margin-left: 10px;
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.ftp-cta:hover {
+    background: #17a950;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 40px rgba(31, 202, 100, 0.35);
+}
+
+.ftp-cta:active {
+    transform: translateY(1px);
+}
+
+.ftp-disclaimer {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.ftp-disclaimer span {
+    color: #fff;
+}
+
+@keyframes fadeInOverlay {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popInModal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 640px) {
+    .ftp-modal {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .ftp-title {
+        font-size: 1.8rem;
+    }
+
+    .ftp-description {
+        font-size: 0.95rem;
+    }
+
+    .ftp-benefits {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .ftp-cta {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}

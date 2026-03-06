@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import StickyCTABar from './components/StickyCTABar';
 import SecondVidSec from './components/SecondVideoSection';
 import AffiliatesPage from './components/AffiliatesPage';
+import FirstTimePopup from './components/FirstTimePopup';
 
 function App() {
   const [page, setPage] = useState('home');
@@ -38,6 +39,7 @@ function App() {
     <LanguageProvider>
       <PriceProvider>
         <div className="App">
+          <FirstTimePopup />
           <Navbar currentPage={page} setPage={setPage} />
           <div className="navbar-spacer"></div>
 
