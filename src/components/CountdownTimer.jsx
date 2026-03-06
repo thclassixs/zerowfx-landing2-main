@@ -10,7 +10,10 @@ const CountdownTimer = () => {
     minutes: 0,
     seconds: 0
   });
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(() => {
+    // Start collapsed on mobile to avoid blocking content
+    return typeof window !== 'undefined' ? window.innerWidth >= 768 : true;
+  });
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {

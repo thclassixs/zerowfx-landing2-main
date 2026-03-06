@@ -131,7 +131,7 @@ const Vidsec = () => {
                 {isSubmitting ? 'Sending...' : 'Submit'}
               </button>
             </form>
-            
+
             {submitStatus === 'success' && (
               <p className="email-success">✅ You're in! Check your inbox.</p>
             )}
@@ -189,7 +189,6 @@ const Vidsec = () => {
                 preload="metadata"
                 muted
                 autoPlay
-                onPlay={(e) => { e.target.pause(); e.target.currentTime = 0; }}
               />
             </div>
           </div>

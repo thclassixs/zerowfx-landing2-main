@@ -1,30 +1,30 @@
 /* ============================================================
-   Video Section (first hero section)
+   Video Section (first hero section) — MOBILE-FIRST
    ============================================================ */
 
 .hero {
   position: relative;
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   align-items: center;
   overflow: hidden;
   background: #ffffff;
-  padding: 4rem 0;
+  padding: 2.5rem 0;
 }
 
 /* ============================================================
-   Two-column grid layout
+   Mobile-first: single column layout
    ============================================================ */
 .hero-content {
   position: relative;
   z-index: 3;
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1rem;
   width: 100%;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 4rem;
+  grid-template-columns: 1fr;
+  gap: 2rem;
   align-items: center;
 }
 
@@ -40,6 +40,7 @@
   align-items: center;
   animation: fadeInRight 1s ease-out;
   position: relative;
+  order: -1;
 }
 
 /* ============================================================
@@ -48,11 +49,11 @@
 .image-border {
   position: relative;
   width: 100%;
-  max-width: 420px;
-  height: 480px;
+  max-width: 260px;
+  height: 300px;
   overflow: hidden;
   border-radius: 1rem;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
 }
 
 .image-slider {
@@ -76,11 +77,11 @@
    Typography
    ============================================================ */
 .hero-title {
-  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-size: clamp(1.875rem, 6vw, 4.5rem);
   font-weight: 900;
   color: #0a0a0a;
   line-height: 1.05;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   letter-spacing: -0.03em;
   text-transform: uppercase;
 }
@@ -94,11 +95,11 @@
 }
 
 .hero-subtitle {
-  font-size: 1.1rem;
+  font-size: 0.9375rem;
   color: #333;
   line-height: 1.7;
-  margin-bottom: 2rem;
-  max-width: 560px;
+  margin-bottom: 1.5rem;
+  max-width: 100%;
   font-weight: 500;
 }
 
@@ -107,33 +108,15 @@
    ============================================================ */
 .hero-buttons {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #168241, #1db954);
-  color: #fff;
-  padding: 1.1rem 2.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   gap: 0.75rem;
-  box-shadow: 0 8px 25px rgba(22, 130, 65, 0.35);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  flex-wrap: wrap;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
 }
 
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 35px rgba(22, 130, 65, 0.55);
+/* .btn-primary core style comes from App.css unified system */
+.btn-primary {
+  width: 100%;
 }
 
 .telegram-icon {
@@ -148,7 +131,7 @@
 .trust-indicators {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .indicator {
@@ -156,7 +139,7 @@
   align-items: center;
   gap: 0.5rem;
   color: #555;
-  font-size: 0.875rem;
+  font-size: 0.8rem;
   font-weight: 500;
 }
 
@@ -168,15 +151,15 @@
    Email Form
    ============================================================ */
 .email-form-container {
-  margin: 1.5rem 0 2rem;
+  margin: 1.25rem 0 1.5rem;
   padding: 0;
 }
 
 .email-form-title {
-  font-size: 1.15rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #333;
-  margin-bottom: 1rem;
+  margin-bottom: 0.875rem;
   line-height: 1.4;
 }
 
@@ -184,6 +167,7 @@
   display: flex;
   gap: 0.75rem;
   margin-bottom: 0.75rem;
+  flex-direction: column;
 }
 
 .email-input {
@@ -204,7 +188,7 @@
   background: #168241;
   color: white;
   font-weight: 700;
-  padding: 0 1.5rem;
+  padding: 0.9rem 1.5rem;
   border-radius: 0.5rem;
   border: none;
   cursor: pointer;
@@ -242,24 +226,17 @@
   }
 }
 
-/* ============================================================
-   Responsive – Tablet (≤ 968px)
-   ============================================================ */
-@media (max-width: 968px) {
+/* ==========================================================
+   TABLET (≥ 640px)
+   ========================================================== */
+@media (min-width: 640px) {
   .hero {
     padding: 3rem 0;
-    min-height: auto;
   }
 
   .hero-content {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
     padding: 0 1.5rem;
-  }
-
-  .hero-image {
-    order: -1;
-    justify-content: center;
+    gap: 2.5rem;
   }
 
   .image-border {
@@ -271,45 +248,92 @@
     font-size: 2.25rem;
   }
 
-  .hero-buttons {
-    flex-direction: column;
-  }
-
-  .btn-primary {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .trust-indicators {
-    gap: 1rem;
+  .hero-subtitle {
+    font-size: 1rem;
   }
 
   .email-form {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .email-submit {
-    padding: 0.9rem 1.5rem;
+    padding: 0 1.5rem;
+  }
+
+  .indicator {
+    font-size: 0.875rem;
+  }
+
+  .email-form-title {
+    font-size: 1.15rem;
+  }
+}
+
+/* ==========================================================
+   DESKTOP (≥ 1024px) — two-column layout
+   ========================================================== */
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 100vh;
+    padding: 4rem 0;
+  }
+
+  .hero-content {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    padding: 0 2rem;
+  }
+
+  .hero-image {
+    order: 0;
+  }
+
+  .image-border {
+    max-width: 420px;
+    height: 480px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    max-width: 560px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-buttons {
+    flex-direction: row;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .btn-primary {
+    width: auto;
+    padding: 1.1rem 2.5rem;
+    font-size: 1rem;
+  }
+
+  .trust-indicators {
+    gap: 1.5rem;
+  }
+
+  .email-form-container {
+    margin: 1.5rem 0 2rem;
   }
 }
 
 /* ============================================================
-   Responsive – Mobile (≤ 480px)
+   Responsive – Large Desktop (≥ 1200px)
    ============================================================ */
-@media (max-width: 480px) {
-  .image-border {
-    max-width: 260px;
-    height: 300px;
-  }
-
-  .hero-title {
-    font-size: 1.875rem;
-  }
-
-  .indicator {
-    font-size: 0.8rem;
+@media (min-width: 1200px) {
+  .hero-content {
+    gap: 4rem;
   }
 }
+
 /* Email form feedback messages */
 .email-success {
   color: #4ade80;

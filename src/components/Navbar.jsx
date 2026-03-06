@@ -5,7 +5,7 @@ import ukFlag from '../assets/flags/uk.webp';
 import saFlag from '../assets/flags/sa.webp';
 import frFlag from '../assets/flags/fr.webp';
 
-const Navbar = () => {
+const Navbar = ({ currentPage, setPage }) => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
@@ -31,11 +31,31 @@ const Navbar = () => {
   }, []);
 
   const scrollToSection = (sectionClass) => {
-    const section = document.querySelector(sectionClass);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-      setMenuOpen(false);
+    // If on affiliates page, go home first
+    if (currentPage !== 'home') {
+      window.location.hash = '';
+      setPage('home');
+      setTimeout(() => {
+        const section = document.querySelector(sectionClass);
+        if (section) section.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const section = document.querySelector(sectionClass);
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
     }
+    setMenuOpen(false);
+  };
+
+  const navigateTo = (target) => {
+    if (target === 'home') {
+      window.location.hash = '';
+      setPage('home');
+    } else if (target === 'affiliates') {
+      window.location.hash = '#/affiliates';
+      setPage('affiliates');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setMenuOpen(false);
   };
 
   const flagMap = { en: ukFlag, ar: saFlag, fr: frFlag };
@@ -45,20 +65,36 @@ const Navbar = () => {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         {/* Left: Brand */}
-        <div className="navbar-brand">
+        <div className="navbar-brand" style={{ cursor: 'pointer' }} onClick={() => navigateTo('home')}>
           <img src="/favicon.png" alt="Zerowfx" className="navbar-logo" />
           <span className="navbar-title">Zerowfx</span>
         </div>
 
         {/* Center: Nav links */}
         <ul className={`navbar-menu ${menuOpen ? 'open' : ''}`}>
-          <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('.about'); }}>About</a></li>
-          <li><a href="#results" onClick={(e) => { e.preventDefault(); scrollToSection('.results'); }}>Results</a></li>
-          <li><a href="#setups" onClick={(e) => { e.preventDefault(); scrollToSection('.trading-setups'); }}>Setups</a></li>
-          <li><a href="#broker" onClick={(e) => { e.preventDefault(); scrollToSection('.broker-section'); }}>Broker</a></li>
+          {currentPage === 'home' ? (
+            <>
+              <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('.about'); }}>About</a></li>
+              <li><a href="#results" onClick={(e) => { e.preventDefault(); scrollToSection('.results'); }}>Results</a></li>
+              <li><a href="#setups" onClick={(e) => { e.preventDefault(); scrollToSection('.trading-setups'); }}>Setups</a></li>
+              <li><a href="#broker" onClick={(e) => { e.preventDefault(); scrollToSection('.broker-section'); }}>Broker</a></li>
+            </>
+          ) : (
+            <li><a href="#home" onClick={(e) => { e.preventDefault(); navigateTo('home'); }}>← Home</a></li>
+          )}
+          <li>
+            <a
+              href="#affiliates"
+              onClick={(e) => { e.preventDefault(); navigateTo('affiliates'); }}
+              className={currentPage === 'affiliates' ? 'navbar-link-active' : ''}
+              style={currentPage === 'affiliates' ? { color: '#168241' } : {}}
+            >
+              Partners
+            </a>
+          </li>
         </ul>
 
-        {/* Right: Language + CTA + Hamburger */}
+        {/* Right: Language + Hamburger */}
         <div className="navbar-cta-wrapper">
           {/* Language switcher Dropdown */}
           <div className="navbar-lang-container" ref={langRef}>

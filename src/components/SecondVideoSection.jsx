@@ -72,7 +72,6 @@ const Vidsec = () => {
                 preload="metadata"
                 muted
                 autoPlay
-                onPlay={(e) => { e.target.pause(); e.target.currentTime = 0; }}
               />
             </div>
           </div>

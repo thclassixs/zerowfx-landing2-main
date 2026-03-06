@@ -1,5 +1,5 @@
 /* ============================================================
-   Second Video Section
+   Second Video Section — MOBILE-FIRST
    Uses the same shared classes: .hero-content, .hero-image,
    .hero-text, .image-border, .slider-video, .trust-indicators,
    .hero-buttons, .btn-primary
@@ -8,12 +8,12 @@
 
 .secondvidsec {
   position: relative;
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
   align-items: center;
   overflow: hidden;
   background: #000000;
-  padding: 4rem 0;
+  padding: 2.5rem 0;
 }
 
 /* Dark background overrides for text/UI inside this section */
@@ -25,14 +25,13 @@
   color: #ccc;
 }
 
-
 /* ============================================================
-   Override .hero-content grid for dark background section
-   (grid is already set by Videosection.css; this reverses
-   the column order so video is on the LEFT here)
+   Mobile-first: single column (inherits from Videosection.css)
+   Video on top, text below
    ============================================================ */
-.secondvidsec .hero-content {
-  grid-template-columns: 0.9fr 1.1fr;
+.secondvidsec .hero-image {
+  order: -1;
+  justify-content: center;
 }
 
 /* ============================================================
@@ -41,24 +40,24 @@
 .hero-list {
   list-style: none;
   padding: 0;
-  margin: 1.5rem 0 2rem;
+  margin: 1rem 0 1.5rem;
 }
 
 .hero-list li {
   display: flex;
   align-items: flex-start;
-  gap: 0.65rem;
-  margin-bottom: 0.85rem;
+  gap: 0.5rem;
+  margin-bottom: 0.7rem;
   color: #e8e8e8;
-  font-size: 1.05rem;
+  font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.5;
 }
 
 .hero-list li::before {
-  content: "✔";
+  content: "\2714";
   color: #168241;
-  font-size: 1.1rem;
+  font-size: 1rem;
   flex-shrink: 0;
   line-height: 1.5;
 }
@@ -68,42 +67,52 @@
   color: white;
   padding: 0.15rem 0.45rem;
   border-radius: 4px;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   margin-left: 0.25rem;
   text-transform: uppercase;
 }
 
-/* ============================================================
-   Responsive – Tablet (≤ 968px)
-   ============================================================ */
-@media (max-width: 968px) {
+/* ==========================================================
+   TABLET (≥ 640px)
+   ========================================================== */
+@media (min-width: 640px) {
   .secondvidsec {
     padding: 3rem 0;
-    min-height: auto;
   }
 
-  /* Restore single column on mobile — video first */
   .secondvidsec .hero-content {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
     padding: 0 1.5rem;
-  }
-
-  .secondvidsec .hero-image {
-    order: -1;
-    justify-content: center;
+    gap: 2.5rem;
   }
 
   .hero-list li {
     font-size: 0.95rem;
+    gap: 0.65rem;
+  }
+
+  .hero-list {
+    margin: 1.5rem 0 2rem;
   }
 }
 
-/* ============================================================
-   Responsive – Mobile (≤ 480px)
-   ============================================================ */
-@media (max-width: 480px) {
+/* ==========================================================
+   DESKTOP (≥ 1024px) — two-column, reversed order
+   ========================================================== */
+@media (min-width: 1024px) {
+  .secondvidsec {
+    min-height: 100vh;
+    padding: 4rem 0;
+  }
+
+  .secondvidsec .hero-content {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+
+  .secondvidsec .hero-image {
+    order: 0;
+  }
+
   .hero-list li {
-    font-size: 0.875rem;
+    font-size: 1.05rem;
   }
 }

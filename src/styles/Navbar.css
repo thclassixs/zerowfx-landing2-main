@@ -1,15 +1,8 @@
 /* ============================================================
-   CSS Variables for the fixed header
-   Countdown is now a floating left widget — not a top banner.
+   CSS Variables for the fixed header — MOBILE-FIRST
    ============================================================ */
 :root {
-  --navbar-h: 70px;
-}
-
-@media (max-width: 968px) {
-  :root {
-    --navbar-h: 60px;
-  }
+  --navbar-h: 56px;
 }
 
 /* ============================================================
@@ -45,30 +38,31 @@
   box-shadow: 0 2px 24px rgba(0, 0, 0, 0.6);
 }
 
+/* Mobile: two-column grid (brand | hamburger) */
 .navbar-container {
   width: 100%;
-  padding: 0 4%;
+  padding: 0 3%;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
 }
 
 .navbar-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .navbar-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
   object-fit: cover;
 }
 
 .navbar-title {
-  font-size: 1.6rem;
+  font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -78,14 +72,34 @@
   background-clip: text;
 }
 
+/* Mobile: full-width dropdown menu */
 .navbar-menu {
+  grid-column: 1 / -1;
+  position: fixed;
+  top: var(--navbar-h);
+  left: 0;
+  right: 0;
+  background: rgba(10, 10, 10, 0.98);
   display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  gap: 14px;
+  transform: translateY(-110%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.2);
+  z-index: 999;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  gap: 30px;
   list-style: none;
   margin: 0;
-  padding: 0;
+}
+
+.navbar-menu.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .navbar-cta-wrapper {
@@ -97,10 +111,13 @@
 .navbar-menu li a {
   color: #ffffff;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 500;
   transition: color 0.3s ease;
   position: relative;
+  padding: 8px 0;
+  display: block;
+  text-align: center;
 }
 
 .navbar-menu li a:not(.navbar-cta):hover {
@@ -110,7 +127,7 @@
 .navbar-menu li a:not(.navbar-cta)::after {
   content: '';
   position: absolute;
-  bottom: -5px;
+  bottom: -3px;
   left: 0;
   width: 0;
   height: 2px;
@@ -132,11 +149,11 @@
 .navbar-lang-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
-  padding: 5px 11px 5px 7px;
+  padding: 4px 9px 4px 6px;
   cursor: pointer;
   transition: background 0.2s ease, border-color 0.2s ease;
   color: #fff;
@@ -150,15 +167,15 @@
 }
 
 .navbar-lang-flag {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   object-fit: cover;
   flex-shrink: 0;
 }
 
 .navbar-lang-name {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.05em;
   color: #fff;
@@ -167,7 +184,7 @@
 .navbar-lang-arrow {
   color: rgba(255, 255, 255, 0.6);
   transition: transform 0.3s ease;
-  margin-left: 2px;
+  margin-left: 1px;
 }
 
 .navbar-lang-arrow.open {
@@ -176,15 +193,15 @@
 
 .navbar-lang-dropdown {
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 10px);
   right: 0;
   background: #111;
   border: 1px solid rgba(22, 130, 65, 0.3);
-  border-radius: 12px;
-  padding: 8px;
+  border-radius: 10px;
+  padding: 6px;
   list-style: none;
   margin: 0;
-  min-width: 120px;
+  min-width: 110px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
   opacity: 0;
@@ -204,14 +221,14 @@
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   background: transparent;
   border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
+  padding: 7px 10px;
+  border-radius: 5px;
   cursor: pointer;
   color: #e0e0e0;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   transition: all 0.2s ease;
 }
@@ -227,23 +244,22 @@
   font-weight: 600;
 }
 
-
-
 /* ============================================================
-   Hamburger toggle (mobile only)
+   Hamburger toggle (visible on mobile by default)
    ============================================================ */
 .navbar-toggle {
-  display: none;
+  display: block;
   background: none !important;
   border: none;
   cursor: pointer;
-  padding: 10px;
+  padding: 8px;
   line-height: 0;
+  margin-left: 6px;
 }
 
 .hamburger {
   display: block;
-  width: 25px;
+  width: 22px;
   height: 2px;
   background: #c9a227;
   position: relative;
@@ -254,18 +270,18 @@
 .hamburger::after {
   content: '';
   position: absolute;
-  width: 25px;
+  width: 22px;
   height: 2px;
   background: #c9a227;
   transition: all 0.3s ease;
 }
 
 .hamburger::before {
-  top: -8px;
+  top: -7px;
 }
 
 .hamburger::after {
-  bottom: -8px;
+  bottom: -7px;
 }
 
 .hamburger.open {
@@ -282,55 +298,111 @@
   transform: rotate(-45deg);
 }
 
-/* ============================================================
-   Mobile
-   ============================================================ */
-@media (max-width: 768px) {
-
-  /* Collapse grid to 2 columns: brand | cta-wrapper (hamburger) */
-  .navbar-container {
-    grid-template-columns: 1fr auto;
+/* ==========================================================
+   TABLET (≥ 640px)
+   ========================================================== */
+@media (min-width: 640px) {
+  :root {
+    --navbar-h: 64px;
   }
 
-  /* Hide nav links list on mobile (it slides in as dropdown) */
+  .navbar-container {
+    padding: 0 4%;
+    gap: 12px;
+  }
+
+  .navbar-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .navbar-title {
+    font-size: 1.4rem;
+  }
+
+  .navbar-lang-flag {
+    width: 20px;
+    height: 20px;
+  }
+
+  .navbar-lang-name {
+    font-size: 0.75rem;
+  }
+}
+
+/* ==========================================================
+   DESKTOP (≥ 768px) — three-column layout with visible nav
+   ========================================================== */
+@media (min-width: 768px) {
+  :root {
+    --navbar-h: 70px;
+  }
+
+  .navbar-container {
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+  }
+
+  .navbar-brand {
+    gap: 12px;
+  }
+
+  .navbar-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  .navbar-title {
+    font-size: 1.6rem;
+  }
+
+  /* Show nav links inline */
   .navbar-menu {
-    /* Override grid placement — full-width fixed dropdown */
-    grid-column: 1 / -1;
-    position: fixed;
-    top: var(--navbar-h);
-    left: 0;
-    right: 0;
-    background: rgba(10, 10, 10, 0.98);
-    flex-direction: column;
-    padding: 28px 20px;
-    gap: 18px;
-    transform: translateY(-110%);
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    border-bottom: 1px solid rgba(201, 162, 39, 0.2);
-    z-index: 999;
-    /* Remove justify-content:center for vertical layout */
-    justify-content: flex-start;
+    position: static;
+    grid-column: auto;
+    flex-direction: row;
+    padding: 0;
+    gap: 30px;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+    background: none;
+    border-bottom: none;
+    justify-content: center;
     align-items: center;
   }
 
-  .navbar-menu.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
   .navbar-menu li a {
-    font-size: 1.1rem;
-    padding: 10px 0;
-    display: block;
-    text-align: center;
+    font-size: 0.95rem;
+    padding: 0;
   }
 
-  /* Show hamburger on mobile */
+  .navbar-menu li a:not(.navbar-cta)::after {
+    bottom: -5px;
+  }
+
+  /* Hide hamburger on desktop */
   .navbar-toggle {
-    display: block;
-    margin-left: 8px;
+    display: none;
+  }
+
+  .navbar-lang-btn {
+    padding: 5px 11px 5px 7px;
+    gap: 6px;
+  }
+
+  .navbar-lang-dropdown {
+    top: calc(100% + 12px);
+    border-radius: 12px;
+    padding: 8px;
+    min-width: 120px;
+  }
+
+  .lang-dropdown-item {
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
   }
 }
