@@ -30,75 +30,27 @@ const brokers = [
         highlight: true,
     },
     {
-        id: 'exness',
-        name: 'Exness',
-        category: 'Forex & Metals',
-        badge: 'TOP SPREADS',
-        badgeColor: '#1d6edb',
-        logo: '💹',
-        rating: 4.7,
-        bonus: 'Unlimited Leverage',
-        description:
-            'Industry-leading tight spreads on Gold and major Forex pairs. Instant withdrawals 24/7 and professional trading conditions for serious traders.',
-        features: [
-            'Spreads from 0.0 pips on Gold',
-            'Unlimited leverage available',
-            'Instant 24/7 withdrawals',
-            'No swap on select accounts',
-            'True ECN execution',
-        ],
-        ctaLabel: 'Start Trading with Exness',
-        ctaLink: 'https://one.exness-track.com/a/your-link',
-        partnerCode: 'ZEROWFX',
-        regulation: 'FCA • CySEC • FSA',
-        highlight: false,
-    },
-    {
-        id: 'ic-markets',
-        name: 'IC Markets',
-        category: 'ECN Broker',
-        badge: 'RAW SPREADS',
-        badgeColor: '#8b5cf6',
-        logo: '📈',
+        id: 'btcc',
+        name: 'BTCC',
+        category: 'Crypto Exchange',
+        badge: 'TOP CRYPTO',
+        badgeColor: '#f7931a',
+        logo: '🪙',
         rating: 4.8,
-        bonus: 'Raw Spread Account',
+        bonus: 'Welcome Bonus',
         description:
-            'True ECN broker with raw interbank spreads. Perfect for scalping and algorithmic trading. Regulated by ASIC and CySEC with lightning-fast execution.',
+            'Trade cryptocurrencies with high leverage on one of the oldest and most reliable crypto exchanges in the world.',
         features: [
-            'Raw spreads from 0.0 pips',
-            'Up to 1:500 leverage',
-            'Multiple platforms (MT4/MT5/cTrader)',
-            'Ultra-fast order execution',
-            'No restrictions on trading style',
+            'Crypto Futures Trading',
+            'High Leverage Available',
+            'Deep Liquidity',
+            'Secure & Reliable',
+            '24/7 Customer Support',
         ],
-        ctaLabel: 'Open Raw Spread Account',
-        ctaLink: 'https://icmarkets.com/?camp=your-link',
-        partnerCode: 'ZFX2024',
-        regulation: 'ASIC • CySEC • FSA',
-        highlight: false,
-    },
-    {
-        id: 'pepperstone',
-        name: 'Pepperstone',
-        category: 'CFD Broker',
-        badge: 'FAST EXECUTION',
-        badgeColor: '#f59e0b',
-        logo: '⚡',
-        rating: 4.6,
-        bonus: 'No Minimum Deposit',
-        description:
-            'Award-winning broker offering superior trading conditions for Gold and Forex. Known for blazing-fast execution and no dealing desk intervention.',
-        features: [
-            'No minimum deposit',
-            'Award-winning customer support',
-            'Advanced charting tools',
-            'MT4 / MT5 / cTrader support',
-            'Razor-thin spreads on majors',
-        ],
-        ctaLabel: 'Trade with Pepperstone',
-        ctaLink: 'https://pepperstone.com/?ref=your-link',
-        partnerCode: 'ZEROWFX',
-        regulation: 'ASIC • FCA • DFSA',
+        ctaLabel: 'Trade on BTCC',
+        ctaLink: 'https://partner.btcc.com/us/c/2H3OS0',
+        partnerCode: '2H3OS0',
+        regulation: 'Regulated Crypto Exchange',
         highlight: false,
     },
 ];
@@ -258,7 +210,7 @@ const AffiliatesPage = () => {
                     </p>
                     <div className="afp-hero-stats">
                         <div className="afp-stat">
-                            <span className="afp-stat-num">4+</span>
+                            <span className="afp-stat-num">2</span>
                             <span className="afp-stat-label">Partner Brokers</span>
                         </div>
                         <div className="afp-stat-divider" />
