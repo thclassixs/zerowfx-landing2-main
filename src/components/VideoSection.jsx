@@ -133,10 +133,10 @@ const Vidsec = () => {
             </form>
 
             {submitStatus === 'success' && (
-              <p className="email-success">✅ You're in! Check your inbox.</p>
+              <p className="email-success">You're in! Check your inbox.</p>
             )}
             {submitStatus === 'error' && (
-              <p className="email-error">❌ Something went wrong. Try again.</p>
+              <p className="email-error">Something went wrong. Try again.</p>
             )}
 
           </div>

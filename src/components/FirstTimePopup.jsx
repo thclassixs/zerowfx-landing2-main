@@ -143,10 +143,10 @@ const FirstTimePopup = () => {
                         )}
                     </button>
                     {submitStatus === 'success' && (
-                        <p className="email-success" style={{ color: '#4ade80', fontSize: '0.9rem', margin: '0', textAlign: 'center' }}>✅ You're in! Check your inbox.</p>
+                        <p className="email-success" style={{ color: '#4ade80', fontSize: '0.9rem', margin: '0', textAlign: 'center' }}>You're in! Check your inbox.</p>
                     )}
                     {submitStatus === 'error' && (
-                        <p className="email-error" style={{ color: '#f87171', fontSize: '0.9rem', margin: '0', textAlign: 'center' }}>❌ Something went wrong. Try again.</p>
+                        <p className="email-error" style={{ color: '#f87171', fontSize: '0.9rem', margin: '0', textAlign: 'center' }}>Something went wrong. Try again.</p>
                     )}
                 </form>
             </div>
