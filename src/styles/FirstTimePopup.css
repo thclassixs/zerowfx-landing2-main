@@ -202,3 +202,69 @@
         font-size: 1rem;
     }
 }
+
+/* Email Form Overrides for First Time Popup (Dark Background) */
+.ftp-modal .email-form-container {
+    width: 100%;
+    margin: 1.5rem 0 2rem;
+}
+
+.ftp-modal .email-form-title {
+    color: #fff;
+    font-size: 1.1rem;
+}
+
+.ftp-modal .email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .ftp-modal .email-form {
+        flex-direction: row;
+    }
+}
+
+.ftp-modal .email-input {
+    flex: 1;
+    padding: 0.9rem 1rem;
+    border-radius: 0.5rem;
+    border: 1.5px solid rgba(16, 185, 129, 0.35);
+    /* #10b981 primary green */
+    background: rgba(255, 255, 255, 0.05);
+    /* Match dark mode */
+    color: #fff;
+    font-size: 1rem;
+}
+
+.ftp-modal .email-input::placeholder {
+    color: #888;
+}
+
+.ftp-modal .email-submit {
+    background: #10b981;
+    color: white;
+    font-weight: 700;
+    padding: 0.9rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.ftp-modal .email-submit:hover:not(:disabled) {
+    background: #059669;
+}
+
+.ftp-modal .email-submit:disabled,
+.ftp-modal .email-input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.ftp-modal .email-success,
+.ftp-modal .email-error {
+    text-align: center;
+}

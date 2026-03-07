@@ -4,12 +4,16 @@ import '../styles/FirstTimePopup.css';
 const FirstTimePopup = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const [email, setEmail] = useState('');
+    const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        // Check if the user has already seen the popup
+        // Check if the user has already seen the popup or submitted the email
         const hasSeenPopup = localStorage.getItem('hasSeenXMFirstTimePopup');
+        const hasSubmittedEmail = localStorage.getItem('hasSubmittedPopupEmail');
 
-        if (!hasSeenPopup) {
+        if (!hasSeenPopup && !hasSubmittedEmail) {
             // Delay before showing the popup so the page can load nicely
             const timer = setTimeout(() => {
                 setIsVisible(true);
@@ -26,18 +30,53 @@ const FirstTimePopup = () => {
         setTimeout(() => setMounted(false), 300);
     };
 
-    const handleCTAClick = () => {
-        localStorage.setItem('hasSeenXMFirstTimePopup', 'true');
-        if (window.gtag) {
-            window.gtag('event', 'cta_click', {
-                event_category: 'affiliate',
-                event_label: 'xm_popup_100_bonus'
+    const handleEmailSubmit = async (e) => {
+        e.preventDefault();
+        if (!email || isSubmitting) return;
+
+        setIsSubmitting(true);
+        setSubmitStatus(null);
+
+        try {
+            const response = await fetch('/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email }),
             });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setSubmitStatus('success');
+                setEmail('');
+
+                if (window.gtag) {
+                    window.gtag('event', 'subscribe', {
+                        event_category: 'engagement',
+                        event_label: 'ftp_email_subscription'
+                    });
+                }
+
+                // Never show popup again after successful submission
+                localStorage.setItem('hasSubmittedPopupEmail', 'true');
+                localStorage.setItem('hasSeenXMFirstTimePopup', 'true');
+
+                // Close popup automatically after short delay
+                setTimeout(() => {
+                    setIsVisible(false);
+                    setTimeout(() => setMounted(false), 300);
+                }, 2000);
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error('Subscribe error:', error);
+            setSubmitStatus('error');
+        } finally {
+            setIsSubmitting(false);
         }
-        // Opening link for XM as requested in the mockup
-        window.open('https://affs.click/X3LJB', '_blank');
-        setIsVisible(false);
-        setTimeout(() => setMounted(false), 300);
     };
 
     if (!mounted) return null;
@@ -84,14 +123,32 @@ const FirstTimePopup = () => {
                     </div>
                 </div>
 
-                <button className="ftp-cta" onClick={handleCTAClick}>
-                    CLAIM YOUR 100% BONUS
-                    <span className="arrow">→</span>
-                </button>
-
-                <p className="ftp-disclaimer">
-                    Trading involves risk. Partner code: <span>CQMHK</span>
-                </p>
+                <form className="email-form" onSubmit={handleEmailSubmit} style={{ width: '100%', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '0' }}>
+                    <input
+                        className="email-input"
+                        placeholder="Enter your email"
+                        required
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        disabled={isSubmitting}
+                        style={{ padding: '0.9rem 1rem', borderRadius: '50px', border: '1.5px solid rgba(16, 185, 129, 0.35)', background: 'rgba(255, 255, 255, 0.05)', color: '#fff', fontSize: '1rem', textAlign: 'center', width: '100%' }}
+                    />
+                    <button className="ftp-cta" type="submit" disabled={isSubmitting} style={{ marginBottom: 0, alignSelf: 'center' }}>
+                        {isSubmitting ? '...' : (
+                            <>
+                                SUBMIT
+                                <span className="arrow">→</span>
+                            </>
+                        )}
+                    </button>
+                    {submitStatus === 'success' && (
+                        <p className="email-success" style={{ color: '#4ade80', fontSize: '0.9rem', margin: '0', textAlign: 'center' }}>✅ You're in! Check your inbox.</p>
+                    )}
+                    {submitStatus === 'error' && (
+                        <p className="email-error" style={{ color: '#f87171', fontSize: '0.9rem', margin: '0', textAlign: 'center' }}>❌ Something went wrong. Try again.</p>
+                    )}
+                </form>
             </div>
         </div>
     );
